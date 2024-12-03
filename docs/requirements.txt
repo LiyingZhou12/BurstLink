@@ -7,6 +7,7 @@ nbsphinx
 sphinx_gallery
 furo
 myst-parser
+myst-nb
 matplotlib==3.8.4
 numpy==1.23.1
 pandas==1.5.0
