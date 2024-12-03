@@ -7,12 +7,7 @@ build:
 
 python:
   install:
-    - method: pip
-      path: docs/requirements.txt
+    - requirements: docs/requirements.txt
 
-commands:
-  - sudo apt-get update
-  - sudo apt-get install -y r-base
-
-sphinx:
-  builder: html
+apt_packages:
+  - r-base
