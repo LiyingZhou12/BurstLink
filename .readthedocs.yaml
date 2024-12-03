@@ -9,6 +9,8 @@ python:
   install:
     - requirements: docs/requirements.txt
 
-build-commands:
-  - sudo apt-get update
-  - sudo apt-get install -y r-base
+sphinx:
+  builder: html
+
+apt_packages:
+  - r-base
