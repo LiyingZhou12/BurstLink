@@ -70,10 +70,10 @@ params = [2, 2, 1, 1, 15, 15, 1, 0.2, 1, 3, 0.01, 2000]
 geneinfo = np.array(['X1', 'X2', -math.copysign(1, params[9]), -math.copysign(1, params[8])]).reshape([1, 4])
 infer_results = bl.tools._burst_interactions.genepair_inference(simul_data, geneinfo, figflag = 1, verbose1 = True, verbose2 = False, verbose3 = 2, test = False)
 ```
-<div style="display: flex; justify-content: center; transform: scale(0.7);">
-  <img src="/docs/_static/image/example1-1.pdf" alt="Image 1" width="40%">
-  <img src="/docs/_static/image/example1-2.pdf" alt="Image 2" width="40%">
-  <img src="/docs/_static/image/example1-3.pdf" alt="Image 3" width="40%">
+<div style="display: flex; justify-content: center; align-items: center;">
+    <img src="/docs/_static/image/example1-1.png" alt="Image 1" style="width: 30%; margin-right: 10px;">
+    <img src="/docs/_static/image/example1-2.png" alt="Image 2" style="width: 30%; margin-right: 10px;">
+    <img src="/docs/_static/image/example1-3.png" alt="Image 3" style="width: 30%;">
 </div>
 
 ## Reference
