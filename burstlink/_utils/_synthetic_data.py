@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import random, copy, math
 import numpy as np
+from types import SimpleNamespace
 from scipy.interpolate import interp1d
 from scipy.stats import poisson,norm,uniform
 from scipy.special import j_roots
@@ -11,7 +12,7 @@ import matplotlib.pyplot as plt
 
 def SSA_coexpression(params, verbose, fig):
     """
-    Generate sample data based on gene-gene interactions with bursting mechanistic model.
+    Generate sample data based on gene-gene interactions with bursting mechanistic dynamic model.
 
     Parameters
     ----------
@@ -20,7 +21,7 @@ def SSA_coexpression(params, verbose, fig):
         params = [kon1, kon2, koff1, koff2, ksyn1, ksyn2, kdeg, rK, h1, h2, eps_, T].
     verbose
         Whether to output busrst kinetics.
-        If 'burst', return with busrst kinetics
+        If 'burst', return with busrst kinetics.
         The priori information from the base-GRN built from scATAC-seq data, containing names and regulatory types of two genes.
     fig
         Whether to exhibit distribution images.
@@ -28,7 +29,7 @@ def SSA_coexpression(params, verbose, fig):
     
     Returns
     -------
-    Sample data based on gene-gene interactions with bursting mechanistic model.
+    Sample data based on gene-gene interactions with bursting mechanistic model and its corresponding parameters.
 
    """
     
@@ -134,9 +135,8 @@ def SSA_coexpression(params, verbose, fig):
         mbf2_ = 1 / (1 / mkony + 1 / koff2)
         mbs1_ = ksyn1 / koff1
         mbs2_ = ksyn2 / koff2
-        return(S_stable, mkonx, mkony, mbf1, mbf2, mbs1, mbs2, mbf1_, mbf2_, mbs1_, mbs2_)
-    else: 
-        return (S_stable)
+        return SimpleNamespace(S_stable=S_stable, mbf1=mbf1, mbf2=mbf2, mbs1=mbs1, mbs2=mbs2)
+    else: return (S_stable)
         
 def gibbs_sample(params, m, n):
     """
@@ -252,4 +252,3 @@ def sample_y(params, x, num):
                 break    
     sample = np.array(sample)
     return(sample)
-
