@@ -3,16 +3,21 @@ import os
 import numpy as np
 import pandas as pd
 from scipy import stats
-from scipy.stats import zscore
+from scipy.stats import zscore, ttest_ind
 from sklearn.linear_model import BayesianRidge
 from scipy.stats import t
+from sklearn.utils import resample
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from _utils import _plotting
+from _utils import _plotting as _plotting
+from  plotting import _plotting as _Plotting
 
 
 def tf_tg_analysis(burst_info_file, degree_file):
+    """
+    Downstream analysis for gene roles in network.
+    """
     burst_info_ = pd.read_csv(burst_info_file)
     burst_info = np.matrix(burst_info_)[:, 1::]
     degree_ = pd.read_csv(degree_file)
@@ -39,7 +44,10 @@ def tf_tg_violin_plot(data1, data2):
     return
 
 def interaction_burst_regression(infer_result_filename):
-    filtered_inference_result, unique_genename, result_unique_ = unique_infer_info(infer_result_filename)
+    """
+    Bayesian regression for gene regulatory loops and transcrptional bursting.
+    """
+    filtered_inference_result, unique_genename, result_unique_ = unique_infer_info(infer_result_filename, [-3.5, 2.5, -2.0, 3.0])
     # result_unique_ = [bf, bs, cv2, expression_level, overall_interaction]
     expression_level = result_unique_[:, 3]
     indices_low = np.where(np.log10(expression_level) < np.mean(np.log10(expression_level)))[0]
@@ -93,28 +101,8 @@ def bayes_ridge_prediction(y, x, w, unique_genename):
     predictions3, std_dev3 = br.predict(data_none, return_std=True)
     return(predictions1, np.sqrt(std_dev1), predictions2, np.sqrt(std_dev2), predictions3, np.sqrt(std_dev3))
 
-def unique_infer_info(infer_result_filename):
-    inference_result__ = os.path.abspath(infer_result_filename)
-    inference_result_ = pd.read_csv(inference_result__)
-    inference_result = np.matrix(inference_result_)[:, 1::]
-    # filter out
-    indices_infer = np.where(inference_result[:, 17].astype(float) == 0)[0]
-    for index in np.arange(4):
-        indices_ = np.where(inference_result[:, index+4].astype(float) == 1e-4)[0]
-        indices__ = np.where(inference_result[:, index+4].astype(float) == 1e4)[0]
-        indices___ = list(set(indices_) | set(indices__))
-        indices_infer = list(set(indices_infer) | set(indices___))
-    for index in np.arange(2):
-        indices_ = np.where(np.log10(inference_result[:, index+11].astype(float)) < -3.5)[0]
-        indices__ = np.where(np.log10(inference_result[:, index+11].astype(float)) > 2.5)[0]
-        indices___ = list(set(indices_) | set(indices__))
-        indices_infer = list(set(indices_infer) | set(indices___))
-    for index in np.arange(2):
-        indices_ = np.where(np.log10(inference_result[:, index+13].astype(float)) < -2.0)[0]
-        indices__ = np.where(np.log10(inference_result[:, index+13].astype(float)) > 3.0)[0]
-        indices___ = list(set(indices_) | set(indices__))
-        indices_infer = list(set(indices_infer) | set(indices___))
-    filtered_inference_result = np.delete(inference_result, indices_infer, axis = 0)
+def unique_infer_info(infer_result_filename, thresholds):
+    filtered_inference_result = _Plotting.filter_inference_results(infer_result_filename, thresholds)
     result_ = np.vstack([filtered_inference_result[:, np.array([0, 11, 13, 15, 21, 23])], filtered_inference_result[:, np.array([1, 12, 14, 16, 20, 22])]])
     sorted_result = np.matrix(sorted(result_.tolist(), key = lambda x: (x[0])))
     unique_genename = sorted(list(set(np.array(sorted_result[:, 0]).flatten().tolist())))
@@ -139,6 +127,9 @@ def unique_infer_info(infer_result_filename):
     return(filtered_inference_result, unique_genename, result_unique_)
 
 def burst_interaction_overall(burst_info_file):
+    """
+    Downstream analysis for gene overall regulation and transcrptional bursting.
+    """
     burst_info_ = pd.read_csv(burst_info_file)
     burst_info = np.matrix(burst_info_)[:, 1::]
     expression_level = burst_info[:, 3]
@@ -205,27 +196,26 @@ def burst_info_summarize(infer_result_filename):
     return(result_unique_)  
 
 def affinity_burst(burst_info):
+    """
+    Downstream analysis for TF binding affinity and transcrptional bursting.
+    """
     r = burst_info[:, 0] / burst_info[:, 1]
     bf = burst_info[:, 2]
     bs = burst_info[:, 3]
     expression_level = burst_info[:, 5]
     e, a, b, p_values_e, p_values_a, p_values_b = _plotting.fit_3d(np.log10(bf), np.log10(bs), np.log10(r))
-    fig = plt.figure(figsize=(2.6, 1.8), dpi=300)
+    fig = plt.figure(figsize=(2, 1.5), dpi=300)
     ax = fig.add_subplot(111, projection='3d')
-    scatter = ax.scatter(np.log10(bf), np.log10(bs), np.log10(r), c=np.log10(expression_level), s=6, cmap='viridis', marker='o', alpha=1)
-    colorbar = fig.colorbar(scatter, ax=ax, shrink=0.5, aspect=5, pad=0.1)
-    colorbar.set_label('log10(Mean expression level)', fontsize=4, rotation=270, labelpad=15)
-    colorbar.ax.tick_params(labelsize=3, width=0.2) 
-    colorbar.outline.set_linewidth(0.2)
-    ax.set_xlabel('log10(bf)', fontsize=5, labelpad=0.1)
-    ax.set_ylabel('log10(bs)', fontsize=5, labelpad=0.1)
-    ax.set_zlabel('log10(r)', fontsize=5, labelpad=0.1)
+    scatter = ax.scatter(np.log10(bf), np.log10(bs), np.log10(r), c=np.log10(expression_level), s=3.5, cmap='viridis', marker='o', alpha=1)
+    ax.set_xlabel('log10(bf)', fontsize=4, labelpad=-10)
+    ax.set_ylabel('log10(bs)', fontsize=4, labelpad=-10)
+    ax.set_zlabel('log10(r)', fontsize=4, labelpad=-10)
     ax.xaxis.label.set_position((0.5, -0.15))  
     ax.yaxis.label.set_position((-0.2, 0.5)) 
     ax.zaxis.label.set_position((-0.15, 0.5))  
-    ax.tick_params(axis='x', which='major', labelsize=3, width=0.15) 
-    ax.tick_params(axis='y', which='major', labelsize=3, width=0.15)  
-    ax.tick_params(axis='z', which='major', labelsize=3, width=0.15)
+    ax.tick_params(axis='x', which='major', labelsize=3, width=0.15, pad=-2) 
+    ax.tick_params(axis='y', which='major', labelsize=3, width=0.15, pad=-2)  
+    ax.tick_params(axis='z', which='major', labelsize=3, width=0.15, pad=-2)
     ax.w_xaxis.line.set_linewidth(0.2)
     ax.w_yaxis.line.set_linewidth(0.2)
     ax.w_zaxis.line.set_linewidth(0.2)
@@ -235,6 +225,9 @@ def affinity_burst(burst_info):
     return(a, b, p_value_bf, p_value_bs)
 
 def burst_interactionlevel_positive(readfile_name, burst_info, cv2_info):
+    """
+    Downstream analysis for TF binding numbers and transcrptional bursting.
+    """
     degree_result_ = pd.read_csv(readfile_name)
     degree_result = np.matrix(degree_result_)
     interaction_level = zscore(burst_info[:, 6])
@@ -265,33 +258,29 @@ def burst_interactionlevel_positive(readfile_name, burst_info, cv2_info):
     t_value = t.ppf(0.95, df)
     ci = t_value * residual_std_error * np.sqrt(1/n + (x_fit - mean_x)**2 / np.sum((x - mean_x)**2))
 
-    fig = plt.figure(figsize=(6, 2), dpi=900)
+    fig = plt.figure(figsize=(3, 1.2), dpi=300)
     ax1 = fig.add_subplot(121, projection='3d')
-    scatter = ax1.scatter(np.log10(bf), np.log10(bs), np.log10(indegree), c=np.log10(expression_level), s=7.5, cmap='viridis', marker='o', alpha=1)
-    colorbar = fig.colorbar(scatter, ax=ax1, shrink=0.5, aspect=5, pad=0.1)
-    colorbar.set_label('log10(Mean expression level)', fontsize=4, rotation=270, labelpad=15)
-    colorbar.ax.tick_params(labelsize=3, width=0.2) 
-    colorbar.outline.set_linewidth(0.2)
-    ax1.set_xlabel('log10(bf)', fontsize=5, labelpad=0.1)
-    ax1.set_ylabel('log10(bs)', fontsize=5, labelpad=0.1)
-    ax1.set_zlabel('log10(indegree)', fontsize=5, labelpad=0.1)
+    scatter = ax1.scatter(np.log10(bf), np.log10(bs), np.log10(indegree), c=np.log10(expression_level), s=3, cmap='viridis', marker='o', alpha=1)
+    ax1.set_xlabel('log10(bf)', fontsize=4, labelpad=-10)
+    ax1.set_ylabel('log10(bs)', fontsize=4, labelpad=-10)
+    ax1.set_zlabel('log10(indegree)', fontsize=4, labelpad=-10)
     ax1.xaxis.label.set_position((0.5, -0.15))  
     ax1.yaxis.label.set_position((-0.2, 0.5)) 
     ax1.zaxis.label.set_position((-0.15, 0.5))  
-    ax1.tick_params(axis='x', which='major', labelsize=3, width=0.15) 
-    ax1.tick_params(axis='y', which='major', labelsize=3, width=0.15)  
-    ax1.tick_params(axis='z', which='major', labelsize=3, width=0.15)
+    ax1.tick_params(axis='x', which='major', labelsize=3, width=0.15, pad=-2) 
+    ax1.tick_params(axis='y', which='major', labelsize=3, width=0.15, pad=-2)  
+    ax1.tick_params(axis='z', which='major', labelsize=3, width=0.15, pad=-2)
     ax1.w_xaxis.line.set_linewidth(0.2)
     ax1.w_yaxis.line.set_linewidth(0.2)
     ax1.w_zaxis.line.set_linewidth(0.2)
     ax2 = fig.add_subplot(122) 
-    ax2.scatter(x, y, s = 9)
-    ax2.plot(x_fit, y_fit)
+    ax2.scatter(x, y, s = 4)
+    ax2.plot(x_fit, y_fit, linewidth=0.7)
     ax2.fill_between(x_fit, y_fit - ci, y_fit + ci, alpha=0.2)
-    ax2.set_xlabel('log10(indegree)', fontsize=5)
-    ax2.set_ylabel('log10(cv2)', fontsize=5)
-    ax2.tick_params(axis='x', which='major', labelsize=3, width=0.1)  
-    ax2.tick_params(axis='y', which='major', labelsize=3, width=0.1) 
+    ax2.set_xlabel('log10(indegree)', fontsize=4)
+    ax2.set_ylabel('log10(cv2)', fontsize=4)
+    ax2.tick_params(axis='x', which='major', labelsize=3, width=0.08)  
+    ax2.tick_params(axis='y', which='major', labelsize=3, width=0.08) 
     for spine in ax2.spines.values():
         spine.set_linewidth(0.3)
     plt.tight_layout()
@@ -300,9 +289,85 @@ def burst_interactionlevel_positive(readfile_name, burst_info, cv2_info):
     t_stat_cv2, p_value_cv2 = stats.ttest_ind(sorted_indegree_cv2[14::, 0], sorted_indegree_cv2[14::, 1])
     return (a, b, p_value_bf, p_value_bs, p_value_cv1, p_value_cv2)
 
+def dge_analysis(counts_data_file_Fibr, counts_data_file_ESC, inference_result_Fibr_, inference_result_ESC_):
+    """ Function for differential gene analysis. """
+    counts_data_Fibr_ = pd.read_csv(counts_data_file_Fibr)
+    counts_data_ESC_ = pd.read_csv(counts_data_file_ESC)
+    counts_data_Fibr = np.delete(np.matrix(counts_data_Fibr_.values.tolist()), np.s_[:1], axis=1)
+    counts_data_ESC = np.delete(np.matrix(counts_data_ESC_.values.tolist()), np.s_[:1], axis=1)
+    selected_countsdata_Fibr = np.zeros([1, counts_data_Fibr.shape[1]-1])
+    selected_countsdata_ESC = np.zeros([1, counts_data_ESC.shape[1]-1])
+    filtered_inference_result_Fibr, unique_genename_Fibr, result_unique_Fibr = unique_infer_info(inference_result_Fibr_, [-3.5, 2.5, -2.0, 3.0])
+    filtered_inference_result_ESC, unique_genename_ESC, result_unique_ESC = unique_infer_info(inference_result_ESC_, [-3.5, 2.8, -2.6, 3.2])
+    for n in np.arange(len(unique_genename_Fibr)):
+        genename = unique_genename_Fibr[n]
+        indice = np.where(np.array(unique_genename_ESC) == genename)[0]
+        if (len(indice) == 1):
+            index_Fibr = np.where(counts_data_Fibr[:, 0] == genename)[0][0]
+            counts_data_Fibr__ = counts_data_Fibr[index_Fibr, 1::].astype(float)
+            if np.isnan(counts_data_Fibr__).any():
+                row_mean = np.nanmean(counts_data_Fibr__)
+                counts_data_Fibr__ = np.where(np.isnan(counts_data_Fibr__), row_mean, counts_data_Fibr__)
+            selected_countsdata_Fibr = np.vstack([selected_countsdata_Fibr, counts_data_Fibr__])
+            index_ESC = np.where(counts_data_ESC[:, 0] == genename)[0][0]
+            counts_data_ESC__ = counts_data_ESC[index_ESC, 1::].astype(float)
+            if np.isnan(counts_data_ESC__).any():
+                row_mean = np.nanmean(counts_data_ESC__)
+                counts_data_ESC__ = np.where(np.isnan(counts_data_ESC__), row_mean, counts_data_ESC__)
+            selected_countsdata_ESC = np.vstack([selected_countsdata_ESC, counts_data_ESC__])   
+    group_Fibr = pd.DataFrame(selected_countsdata_Fibr, index=[f"Gene_{i+1}" for i in range(selected_countsdata_Fibr.shape[0])])
+    group_ESC = pd.DataFrame(selected_countsdata_ESC, index=[f"Gene_{i+1}" for i in range(selected_countsdata_Fibr.shape[0])])
+    group_ESC_upsampled = resample(group_ESC.T, replace=True, n_samples=counts_data_Fibr.shape[1]-1, random_state=123).T
+    group_ESC = group_ESC_upsampled
+    
+    results = []
+    for gene in group_Fibr.index:
+        group_Fibr_values = group_Fibr.loc[gene].values
+        group_ESC_values = group_ESC.loc[gene].values
+        mean_group_Fibr = np.mean(group_Fibr_values)
+        mean_group_ESC = np.mean(group_ESC_values)
+        fc = mean_group_ESC / mean_group_Fibr
+        log2_fc = np.log2(fc) if fc > 0 else 0
+        t_stat, p_value = ttest_ind(group_Fibr_values, group_ESC_values, equal_var=False)
+        results.append({'Gene': gene, 'log2FC': log2_fc, 'p_value': p_value})
+        results_df = pd.DataFrame(results)
+        results_df['-log10(p_value)'] = -np.log10(results_df['p_value'])
+    log2_fc_threshold = 0.5
+    p_value_threshold = 0.05
+    results_df['Significance'] = 'Not Significant'
+    results_df.loc[(results_df['log2FC'] > log2_fc_threshold) & (results_df['p_value'] < p_value_threshold), 'Significance'] = 'Upregulated'
+    results_df.loc[(results_df['log2FC'] < -log2_fc_threshold) & (results_df['p_value'] < p_value_threshold),'Significance'] = 'Downregulated'
 
+    plt.figure(dpi=300, figsize=(2.5, 2))
+    sns.scatterplot(data=results_df, x='log2FC', y='-log10(p_value)', hue='Significance', palette={'Upregulated': '#FF6666', 'Downregulated': '#6699FF', 'Not Significant': 'grey'}, s=18, alpha=0.85)
+    plt.axhline(-np.log10(p_value_threshold), color='black', linestyle='--', linewidth=0.4, label=f'p = {p_value_threshold}')
+    plt.axvline(log2_fc_threshold, color='black', linestyle='--', linewidth=0.4, label=f'log2FC = ±{log2_fc_threshold}')
+    plt.axvline(-log2_fc_threshold, color='black', linestyle='--', linewidth=0.4)
+    plt.title('Volcano Plot', fontsize=5)
+    plt.xlabel('log2(Fold Change)', fontsize=3.5)
+    plt.ylabel('-log10(p-value)', fontsize=3.5)
+    plt.xticks(fontsize=2.5) 
+    plt.yticks(fontsize=2.5)  
+    plt.tick_params(axis='both', which='both', width=0.3) 
+    ax = plt.gca()
+    for spine in ax.spines.values(): 
+        spine.set_linewidth(0.4)
+    plt.legend(title='Significance', fontsize=2, title_fontsize=2)
+    plt.grid(alpha=0.3)
+    plt.tight_layout()
+    plt.show()
+    return
 
-
-
-
-
+def correlation_burst(inference_result_Fibr_, inference_result_ESC_):
+    filtered_inference_result_Fibr, unique_genename_Fibr, result_unique_Fibr = unique_infer_info(inference_result_Fibr_, [-3.5, 2.5, -2.0, 3.0])
+    filtered_inference_result_ESC, unique_genename_ESC, result_unique_ESC = unique_infer_info(inference_result_ESC_, [-3.5, 2.8, -2.6, 3.2])
+    unique_results = (np.array(['bf_Fiber', 'bs_Fibr', 'bf_ES', 'bs_ES'])).reshape([1, 4])
+    for n in np.arange(134):
+        genename = unique_genename_Fibr[n]
+        indice = np.where(np.array(unique_genename_ESC) == genename)[0]
+        if (len(indice) == 1):
+            result = (np.array([result_unique_Fibr[n, 0], result_unique_Fibr[n, 1], result_unique_ESC[indice, 0][0], result_unique_ESC[indice, 1][0]])).reshape([1, 4])
+            unique_results = np.vstack([unique_results, result])
+    unique_results = np.delete(unique_results, 62, axis=0)
+    p_bf, p_bs = _plotting.scatter_interval(unique_results)
+    return(p_bf, p_bs)
