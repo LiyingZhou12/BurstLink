@@ -12,15 +12,3 @@ from ._plotting import fit_3d
 from ._plotting import scatter_2d
 from ._synthetic_data import SSA_coexpression
 from ._synthetic_data import gibbs_sample
-
-
-
-
-
-    
-
-    
-    
-    
-
-
