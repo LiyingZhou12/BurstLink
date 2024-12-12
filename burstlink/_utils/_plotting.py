@@ -3,6 +3,7 @@ import os, math
 import numpy as np
 import pandas as pd
 from scipy import stats
+from scipy.stats import pearsonr
 from scipy.ndimage import gaussian_filter1d, gaussian_filter
 import statsmodels.api as sm
 from sklearn.metrics import roc_curve, roc_auc_score
@@ -296,16 +297,16 @@ def box_plot3_2(data1_bf1, data1_bf2, data1_bs1, data1_bs2, data1_cv21, data1_cv
     data2_bs = [data2_bs1, data2_bs2]
     data2_cv2 = [data2_cv21, data2_cv22]
     data2 = [data2_bf, data2_bs, data2_cv2]
-    fig, axes = plt.subplots(1, 2, figsize=(6, 2), dpi=900) 
+    fig, axes = plt.subplots(1, 2, figsize=(4, 1.5), dpi=300) 
     positions = [[1, 2], [4, 5], [7, 8]] 
     colors = ['skyblue', 'peachpuff']  
     for i, group_data in enumerate(data1):
         for j, group in enumerate(group_data):
             axes[0].boxplot(group, positions=[positions[i][j]], patch_artist=True,
                        widths=0.6,
-                       boxprops=dict(facecolor=colors[j], linewidth=0.85),
-                       capprops=dict(linewidth=0.85), whiskerprops=dict(linewidth=0.85),  
-                       medianprops=dict(linewidth=0.8, color='red'),  
+                       boxprops=dict(facecolor=colors[j], linewidth=0.5),
+                       capprops=dict(linewidth=0.5), whiskerprops=dict(linewidth=0.3),  
+                       medianprops=dict(linewidth=0.5, color='red'),  
                        showfliers=False)
     axes[0].set_xticks([1.5, 4.5, 7.5])
     axes[0].set_xticklabels(['BF', 'BS', 'CV2'], fontsize=6)
@@ -318,9 +319,9 @@ def box_plot3_2(data1_bf1, data1_bf2, data1_bs1, data1_bs2, data1_cv21, data1_cv
         for j, group in enumerate(group_data):
             axes[1].boxplot(group, positions=[positions[i][j]], patch_artist=True,
                        widths=0.6,
-                       boxprops=dict(facecolor=colors[j], linewidth=0.85),
-                       capprops=dict(linewidth=0.85), whiskerprops=dict(linewidth=0.85),  
-                       medianprops=dict(linewidth=0.8, color='red'),  
+                       boxprops=dict(facecolor=colors[j], linewidth=0.5),
+                       capprops=dict(linewidth=0.5), whiskerprops=dict(linewidth=0.3),  
+                       medianprops=dict(linewidth=0.5, color='red'),  
                        showfliers=False)
     axes[1].set_xticks([1.5, 4.5, 7.5])
     axes[1].set_xticklabels(['BF', 'BS', 'CV2'], fontsize=6)
@@ -358,11 +359,29 @@ def scatter_2d(x, y, color, x_label, y_label):
     t_stat, p_value = stats.ttest_ind(x, y)
     return(p_value)
 
+def scatter_interval(data):
+    x1 = np.log10(data[1::, 0].astype(float))
+    y1 = np.log10(data[1::, 2].astype(float))
+    x2 = np.log10(data[1::, 1].astype(float))
+    y2 = np.log10(data[1::, 3].astype(float))
+    corr_coef1, p_value1 = pearsonr(x1, y1)
+    corr_coef2, p_value2 = pearsonr(x2, y2)
 
-    
-
-    
-    
-    
-
-
+    fig, axes = plt.subplots(1, 2, figsize=(4, 1.5), dpi=300) 
+    sns.regplot(x=x1, y=y1, ci=95, scatter_kws={'alpha': 0.8, 's': 12}, line_kws={'linewidth': 0.8}, ax=axes[0])
+    axes[0].set_xlabel('log10(bf_Fibr.)', fontsize=3.5)
+    axes[0].set_ylabel('log10(bf_ES)', fontsize=3.5)
+    axes[0].set_xlim(-1.2, 1.7)
+    axes[0].set_ylim(-1.2, 1.7)
+    axes[0].tick_params(axis='both', which='both', labelsize=3, width=0.3)
+    sns.regplot(x=x2, y=y2, ci=95, scatter_kws={'alpha': 0.8, 's': 12}, line_kws={'linewidth': 0.8}, ax=axes[1])
+    axes[1].set_xlabel('log10(bs_Fibr.)', fontsize=3.5)
+    axes[1].set_ylabel('log10(bs_ES)', fontsize=3.5)
+    axes[1].set_xlim(-0.7, 1.5)
+    axes[1].set_ylim(-0.7, 1.5)
+    axes[1].tick_params(axis='both', which='both', labelsize=3, width=0.3)
+    for ax in axes:
+        for spine in ax.spines.values(): spine.set_linewidth(0.4)
+    plt.tight_layout()   
+    plt.show()
+    return(p_value1, p_value2)
