@@ -71,9 +71,9 @@ geneinfo = np.array(['X1', 'X2', -math.copysign(1, params[9]), -math.copysign(1,
 infer_results = bl.tools._burst_interactions.genepair_inference(simul_data, geneinfo, figflag = 1, verbose1 = True, verbose2 = False, verbose3 = 2, test = False)
 ```
 <p align="center">
-  <img src="/docs/_static/image/example1-1.png" alt="Image 1" width="33%">
-  <img src="/docs/_static/image/example1-2.png" alt="Image 2" width="33%">
-  <img src="/docs/_static/image/example1-3.png" alt="Image 3" width="33%">
+  <img src="/docs/_static/image/example1-1.png" alt="Image 1" width="30%">
+  <img src="/docs/_static/image/example1-2.png" alt="Image 2" width="30%">
+  <img src="/docs/_static/image/example1-3.png" alt="Image 3" width="30%">
 </p>
 
 ## Reference
