@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 def select_genepair_grn(read_filename, save_filename, verbose):
-    # Select gene-pair interactions from base-GRN.
+    """ Select gene-pair interactions from base-GRN. """
     parquet_file = pq.ParquetFile(read_filename)
     base_GRN = parquet_file.read().to_pandas()
     tf_genename = base_GRN.columns.tolist()[2::]
@@ -37,6 +37,7 @@ def find_genepair(arr1, arr2, grn_matrix):
     return (grn)
 
 def integration_grn(read_filename_atac, read_filename_tf, save_filename, verbose):
+    """ Integration for grn from different sources. """
     grn_atac = pd.read_csv(read_filename_atac)
     grn_tf = pd.read_csv(read_filename_tf)
     grn_atac = np.array(grn_atac)[:, 1::]
@@ -115,6 +116,7 @@ def refiltered_genepair_grn(filtered_grn_atac, filtered_grn_tf):
     return (sorted_integrated_grn)
    
 def RNAseq_analysis(read_filename1, read_filename2, save_filename1, save_filename2, verbose):
+    """ scRNA-seq raw data preprocess. """
     df1 = pd.read_csv(read_filename1)
     df2 = pd.read_csv(read_filename2)
     rnaseq_list1 = df1.values.tolist()
@@ -147,12 +149,10 @@ def RNAseq_analysis(read_filename1, read_filename2, save_filename1, save_filenam
     plt.hist(mean, bins=20, density=True)
     # plt.savefig('rawdata_mean.pdf')  
     plt.show()
-    
     fig2, ax2 = plt.subplots(dpi=900)
     plt.hist(np.log(mean), bins=20, density=True)
     # plt.savefig('rawdata_logmean.pdf')  
     plt.show()
-    
     fig3, ax3 = plt.subplots(dpi=900)
     df_mean = pd.DataFrame(np.log(mean))
     plt.boxplot(df_mean[0])
@@ -170,7 +170,7 @@ def RNAseq_analysis(read_filename1, read_filename2, save_filename1, save_filenam
     else: return(counts_matrix, stat_matrix)
     
 def selection_GRNandRNAseq(grn_filename, rnaseq_filename, counts_filename, threshold_value, verbose):
-    # threshold_value = 2
+    """ Integration with scRNA-seq data and scATAC-seq data. """
     grn = pd.read_csv(grn_filename)
     grn = np.matrix(grn)[:, 1::]
     # cluster for feedback_GRN: (1, 1)&(1, 0)&(0, 0)
@@ -187,7 +187,6 @@ def selection_GRNandRNAseq(grn_filename, rnaseq_filename, counts_filename, thres
     # selection single-cell data for mean
     stat_matrix = np.matrix(pd.read_csv(rnaseq_filename))
     counts_matrix = np.matrix(pd.read_csv(counts_filename))
-    # stat_matrix = ['genename', 'mean', 'var', 'cv2']
     indices_mean = [i for i, x in enumerate(stat_matrix[:, 2]) if x >= threshold_value]
     selected_genename = stat_matrix[indices_mean, 1]
     selected_counts_matrix = counts_matrix[indices_mean, :]
@@ -199,21 +198,15 @@ def selection_GRNandRNAseq(grn_filename, rnaseq_filename, counts_filename, thres
     selected_genepair = np.vstack([selected_genepair_bio_feedback, selected_genepair_uni_feedback, selected_genepair_no_feedback]) 
 
     if (verbose == True):
-        df1 = pd.DataFrame(selected_genepair_bio_feedback)
-        df1.to_csv('selected_genepair_bio_feedback.csv') 
-        df2 = pd.DataFrame(selected_genepair_uni_feedback)
-        df2.to_csv('selected_genepair_uni_feedback.csv') 
-        df3 = pd.DataFrame(selected_genepair_no_feedback)
-        df3.to_csv('selected_genepair_no_feedback.csv') 
-        df4 = pd.DataFrame(selected_genepair)
-        df4.to_csv('selected_genepair.csv') 
-        df5 = pd.DataFrame(selected_counts_matrix)
-        df5.to_csv('selected_counts_matrix.csv') 
-        return(selected_genepair_bio_feedback, selected_genepair_uni_feedback, selected_genepair_no_feedback, selected_genepair, selected_counts_matrix)
-    else:
-        return(selected_genepair_bio_feedback, selected_genepair_uni_feedback, selected_genepair_no_feedback, selected_genepair, selected_counts_matrix)
+        df1 = pd.DataFrame(selected_genepair)
+        df1.to_csv('selected_genepair.csv') 
+        df2 = pd.DataFrame(selected_counts_matrix)
+        df2.to_csv('selected_counts_matrix.csv') 
+        return(selected_genepair, selected_counts_matrix)
+    else: return(selected_genepair, selected_counts_matrix)
     
 def comparison(selected_grn, rna_seq_genename):
+    """ Screen for gene pair names in both scRNA-seq data and scATAC-seq data. """
     genename1 = selected_grn[:, 0]
     genename2 = selected_grn[:, 1]
     indices1 = np.where(np.isin(genename1, rna_seq_genename))[0]
@@ -221,8 +214,3 @@ def comparison(selected_grn, rna_seq_genename):
     indices = list(set(indices1) & set(indices2))
     selected_genepair = selected_grn[indices, :]
     return (selected_genepair)
-
-
-
-
-
