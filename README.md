@@ -1,4 +1,4 @@
-<img src="/docs/_static/image/logo.png" style="zoom:5%;float: left; margin-left: 20px;">
+<img src="/docs/_static/image/logo.png" style="zoom:0.1%;float: left; margin-left: 20px;">
 
 ## Brief introduction
 BurstLink is a Python package to infer the coupled dynamics of gene regulatory interactions and transcriptional bursting from single-cell transcriptomics or multi-omics data.
@@ -71,9 +71,9 @@ geneinfo = np.array(['X1', 'X2', -math.copysign(1, params[9]), -math.copysign(1,
 infer_results = bl.tools._burst_interactions.genepair_inference(simul_data, geneinfo, figflag = 1, verbose1 = True, verbose2 = False, verbose3 = 2, test = False)
 ```
 <div style="display: flex; justify-content: center; transform: scale(0.7);">
-  <img src="/docs/_static/image/example1-1.pdf" alt="Image 1" width="40%">
-  <img src="/docs/_static/image/example1-2.pdf" alt="Image 2" width="40%">
-  <img src="/docs/_static/image/example1-3.pdf" alt="Image 3" width="40%">
+  <img src="/docs/_static/image/example1-1.png" alt="Image 1" width="40%">
+  <img src="/docs/_static/image/example1-2.png" alt="Image 2" width="40%">
+  <img src="/docs/_static/image/example1-3.png" alt="Image 3" width="40%">
 </div>
 
 ## Reference
