@@ -8,6 +8,9 @@ import rpy2.robjects as ro
 
 
 def network_visualization(counts_file, gene_interactions_file, burst_info_file, degree_data_file, network_figure):
+    """
+    Visualization for gene regulatory interactions network embedded with bursting.
+    """
     ro.globalenv['counts_file'] = counts_file
     ro.globalenv['gene_interactions_file'] = gene_interactions_file
     ro.globalenv['burst_info_file'] = burst_info_file
@@ -70,6 +73,9 @@ def network_visualization(counts_file, gene_interactions_file, burst_info_file, 
     return
 
 def TFs_interactiontype_network(readfile_name):
+    """
+    Visualization for gene regulatory interactions type stacked row chart.
+    """
     filtered_inference_result = filter_inference_results(readfile_name, [-3.5, 2.5, -2.5, 5.0])
     feedback_matrix__ = filtered_inference_result[:, np.array([0, 1, 23, 22])]
     unique_genename = sorted(list(set(np.asarray(np.vstack([filtered_inference_result[:, 0], filtered_inference_result[:, 1]])).flatten())))     
@@ -88,14 +94,21 @@ def TFs_interactiontype_network(readfile_name):
     feedback_matrix_new = np.hstack([np.arange(len(unique_genename)).reshape([len(unique_genename), 1]), feedback_matrix_new])
     sorted_feedback_matrix =  np.matrix(sorted(feedback_matrix_new.tolist(), key=lambda x: tuple(x[1::])))
     sorted_feedback_matrix_ = np.flipud(sorted_feedback_matrix)
-    plt.figure(dpi=900)
-    sns.heatmap(sorted_feedback_matrix_[:, 1::], annot=False, cmap=plt.cm.Blues, annot_kws={'size': 100}, linewidths=0.08, linecolor='w')
-    plt.title('Inference GRN Heatmap')
+    plt.figure(dpi=300, figsize=(2, 1.5))
+    sns.heatmap(sorted_feedback_matrix_[:, 1::], annot=False, cmap=plt.cm.Blues, annot_kws={'size': 100}, linewidths=0.0001, linecolor='w', cbar=False)
+    plt.xticks([], [])
+    plt.yticks([], [])
+    plt.xlabel('Regualtory interaction type', fontsize=3)
+    plt.ylabel('TF gene', fontsize=3) 
+    plt.title('Regualtory interaction type stacked row chart', fontsize=3)
     plt.show()
     return
 
-def scatterplot_burst(readfile_name):
-    filtered_inference_result = filter_inference_results(readfile_name, [-2.5, 3.0, -1.2, 2.5])
+def scatterplot_burst(readfile_name, thresholds, group, xlim, ylim):
+    """
+    Visualization for transcriptional bursting scatter plot.
+    """
+    filtered_inference_result = filter_inference_results(readfile_name, thresholds)
     bs = np.array(np.vstack([filtered_inference_result[:, 13], filtered_inference_result[:, 14]]).astype(float))
     bf = np.array(np.vstack([filtered_inference_result[:, 11], filtered_inference_result[:, 12]]).astype(float))
     cv2 = np.array(np.vstack([filtered_inference_result[:, 15], filtered_inference_result[:, 16]]).astype(float))
@@ -108,13 +121,14 @@ def scatterplot_burst(readfile_name):
     cbar.outline.set_linewidth(0.5)
     plt.xlabel('log10(bf)', fontsize=5)
     plt.ylabel('log10(bs)', fontsize=5) 
-    x = np.linspace(min(np.log10(bf)), max(np.log10(bf)), 100) 
-    y = 0.3449 - x  
-    ax.plot(x, y, color='red', linestyle='--', linewidth=0.5)
+    if (group == True):
+        x = np.linspace(min(np.log10(bf)), max(np.log10(bf)), 100) 
+        y = 0.3449 - x  
+        ax.plot(x, y, color='red', linestyle='--', linewidth=0.5)
     ax.tick_params(axis='both', which='major', labelsize=4, width=0.35) 
     ax.tick_params(axis='both', which='minor', labelsize=4, width=0.35) 
-    plt.xlim([-2.8, 2.6]) 
-    plt.ylim([-1.6, 2.6])    
+    plt.xlim(xlim[0], xlim[1]) 
+    plt.ylim(ylim[0], ylim[1])   
     fig.set_size_inches(2, 1.5)
     for spine in ax.spines.values(): 
         spine.set_linewidth(0.5)
