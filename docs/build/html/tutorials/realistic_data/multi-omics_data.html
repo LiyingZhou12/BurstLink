@@ -1,0 +1,654 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Single-cell multi-omics data for validation (mouse embryonic stem cells)" href="multi-omics_data_validation.html" /><link rel="prev" title="Realistic Data" href="index.html" />
+
+    <!-- Generated with Sphinx 7.1.2 and Furo 2024.08.06 -->
+        <title>Example of single-cell multi-omics data (primary mouse fibroblasts) - BurstLink 0.2.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/override.css?v=46f5334b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #357473;
+  --color-brand-content: #357473;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">BurstLink 0.2.1 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../index.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../simulated_data/index.html">Simulated Data</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Simulated Data</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../simulated_data/example_1.html">Example 1 (Synthetic data via SSA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../simulated_data/example_2.html">Example 2 (Synthetic data via Gibbs sampling)</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="index.html">Realistic Data</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Realistic Data</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">Example of single-cell multi-omics data (primary mouse fibroblasts)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multi-omics_data_validation.html">Single-cell multi-omics data for validation (mouse embryonic stem cells)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/index.html">API Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.pp.select_genepair_grn.html">burstlink.pp.select_genepair_grn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.pp.integration_grn.html">burstlink.pp.integration_grn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.pp.RNAseq_analysis.html">burstlink.pp.RNAseq_analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.pp.selection_GRNandRNAseq.html">burstlink.pp.selection_GRNandRNAseq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.pp.comparison.html">burstlink.pp.comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.tl.global_burst_link.html">burstlink.tl.global_burst_link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.tl.global_uni_burst_link.html">burstlink.tl.global_uni_burst_link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.tl.genepair_inference.html">burstlink.tl.genepair_inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.tl.genepair_burstinference.html">burstlink.tl.genepair_burstinference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.tl.genepair_interactionsinference.html">burstlink.tl.genepair_interactionsinference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.tl.ks_2samp.html">burstlink.tl.ks_2samp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.tl.tf_tg_analysis.html">burstlink.tl.tf_tg_analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.tl.interaction_burst_regression.html">burstlink.tl.interaction_burst_regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.tl.burst_interaction_overall.html">burstlink.tl.burst_interaction_overall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.tl.affinity_burst.html">burstlink.tl.affinity_burst</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.tl.burst_interactionlevel_positive.html">burstlink.tl.burst_interactionlevel_positive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.tl.dge_analysis.html">burstlink.tl.dge_analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.pl.network_visualization.html">burstlink.pl.network_visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.pl.TFs_interactiontype_network.html">burstlink.pl.TFs_interactiontype_network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/burstlink.pl.scatterplot_burst.html">burstlink.pl.scatterplot_burst</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../_sources/tutorials/realistic_data/multi-omics_data.ipynb.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="example-of-single-cell-multi-omics-data-primary-mouse-fibroblasts">
+<h1>Example of single-cell multi-omics data (primary mouse fibroblasts)<a class="headerlink" href="#example-of-single-cell-multi-omics-data-primary-mouse-fibroblasts" title="Permalink to this heading">¶</a></h1>
+<p>In this tutorial, we use primary mouse fibroblasts as an example to show the basic application of BurstLink to single-cell multi-omics data [<a class="reference external" href="https://www.nature.com/articles/s41586-018-0836-1">Larsson et al., 2019</a>, <a class="reference external" href="https://www.nature.com/articles/s41586-022-05688-9">Kamimoto et al., 2023</a>].</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing packages</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+<span class="c1"># import celloracle as co</span>
+<span class="kn">import</span> <span class="nn">burstlink</span> <span class="k">as</span> <span class="nn">bl</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Setting your work dictionary</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s2">&quot;your_path/realistic_data&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="data-preprocessing">
+<h2>Data preprocessing<a class="headerlink" href="#data-preprocessing" title="Permalink to this heading">¶</a></h2>
+<section id="preprocessing-for-scrna-seq-data">
+<h3>Preprocessing for scRNA-seq data<a class="headerlink" href="#preprocessing-for-scrna-seq-data" title="Permalink to this heading">¶</a></h3>
+<p>First, we perform basic preprocessing of scRNA-seq data, including filtering out, and data visualization [<a class="reference external" href="https://www.nature.com/articles/s41586-018-0836-1">Larsson et al., 2019</a>].</p>
+<p>You can download the processed data that were aligned and annotated in this link https://morris-lab.github.io/CellOracle.documentation/index.html:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">read_filename1</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/raw_data/SS3_c57_UMIs_concat.csv&#39;</span><span class="p">)</span>
+<span class="n">read_filename2</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/raw_data/SS3_cast_UMIs_concat.csv&#39;</span><span class="p">)</span>
+<span class="n">save_filename1</span> <span class="o">=</span> <span class="s1">&#39;countsdata_matrix.csv&#39;</span>
+<span class="n">save_filename2</span> <span class="o">=</span> <span class="s1">&#39;stat_matrix.csv&#39;</span>
+<span class="n">counts_matrix</span><span class="p">,</span> <span class="n">stat_matrix</span> <span class="o">=</span> <span class="n">bl</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">_preprocessing</span><span class="o">.</span><span class="n">RNAseq_analysis</span><span class="p">(</span><span class="n">read_filename1</span><span class="p">,</span> <span class="n">read_filename2</span><span class="p">,</span> <span class="n">save_filename1</span><span class="p">,</span> <span class="n">save_filename2</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="preprocessing-for-scatac-seq-data">
+<h3>Preprocessing for scATAC-seq data<a class="headerlink" href="#preprocessing-for-scatac-seq-data" title="Permalink to this heading">¶</a></h3>
+<p>Next, we perform basic preprocessing of base GRN constructed from scATAC-seq data to narrow the scope of possible regulatory candidate genes in scRNA-seq data, including gene-pair interactions selection, filtered GRNs integration, and scRNA-seq data screening [<a class="reference external" href="https://www.nature.com/articles/s41586-022-05688-9">Kamimoto et al., 2023</a>].</p>
+<p>You can download the processed data that were aligned and annotated in this link https://morris-lab.github.io/CellOracle.documentation/index.html:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_GRN_scATAC</span> <span class="o">=</span> <span class="n">co</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">load_mouse_scATAC_atlas_base_GRN</span><span class="p">()</span>
+<span class="n">base_GRN_promoter</span> <span class="o">=</span> <span class="n">co</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">load_mouse_promoter_base_GRN</span><span class="p">()</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">base_GRN_scATAC</span><span class="p">)</span>
+<span class="n">df1</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;primary_mouse_data/raw_data/base_GRN_scATAC.csv&quot;</span><span class="p">)</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">base_GRN_promoter</span><span class="p">)</span>
+<span class="n">df2</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;primary_mouse_data/raw_data/base_GRN_promoter.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>:::{note}
+The <code class="docutils literal notranslate"><span class="pre">celloracle</span></code> package is only for downloading the data documents. If you have problems downloading, you can directly use our downloaded file in the folder <code class="docutils literal notranslate"><span class="pre">/primary_mouse_fibroblasts/raw_data</span></code>.
+:::</p>
+<p>Extract bi-direction information for gene-pair interactions from base-GRNs constructed by scATAC-seq data and motif scanning respectively.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">read_filename1</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/raw_data/mm9_mouse_atac_atlas_data_TSS_and_cicero_0.9_accum_threshold_10.5_DF_peaks_by_TFs_v202204.parquet&#39;</span><span class="p">)</span>
+<span class="n">read_filename2</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/raw_data/mm10_TFinfo_dataframe_gimmemotifsv5_fpr2_threshold_10_20210630.parquet&#39;</span><span class="p">)</span>
+<span class="n">save_filename1</span> <span class="o">=</span> <span class="s1">&#39;genepair_grn_atac.csv&#39;</span>
+<span class="n">save_filename2</span> <span class="o">=</span> <span class="s1">&#39;genepair_grn_tf.csv&#39;</span>
+<span class="n">grn_atac</span> <span class="o">=</span> <span class="n">bl</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">_preprocessing</span><span class="o">.</span><span class="n">select_genepair_grn</span><span class="p">(</span><span class="n">read_filename1</span><span class="p">,</span> <span class="n">save_filename1</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">grn_tf</span> <span class="o">=</span> <span class="n">bl</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">_preprocessing</span><span class="o">.</span><span class="n">select_genepair_grn</span><span class="p">(</span><span class="n">read_filename2</span><span class="p">,</span> <span class="n">save_filename2</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Take the union of the both selected GRN and obtain an integrated gene-wise interactions matrix with 341337 pairs of genes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">read_filename_atac</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/raw_data/genepair_grn_atac.csv&#39;</span><span class="p">)</span>
+<span class="n">read_filename_tf</span> <span class="o">=</span>  <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/raw_data/genepair_grn_tf.csv&#39;</span><span class="p">)</span>
+<span class="n">save_filename</span> <span class="o">=</span> <span class="s1">&#39;genepair_grn.csv&#39;</span>
+<span class="n">integrated_grn</span> <span class="o">=</span> <span class="n">bl</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">_preprocessing</span><span class="o">.</span><span class="n">integration_grn</span><span class="p">(</span><span class="n">read_filename_atac</span><span class="p">,</span> <span class="n">read_filename_tf</span><span class="p">,</span> <span class="n">save_filename</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="integration-of-selected-base-grn-and-filtered-scrna-seq-data">
+<h3>Integration of selected base-GRN and filtered scRNA-seq data<a class="headerlink" href="#integration-of-selected-base-grn-and-filtered-scrna-seq-data" title="Permalink to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grn_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/raw_data/genepair_grn.csv&#39;</span><span class="p">)</span>
+<span class="n">rnaseq_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/raw_data/stat_matrix.csv&#39;</span><span class="p">)</span>
+<span class="n">counts_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/raw_data/countsdata_matrix.csv&#39;</span><span class="p">)</span>
+<span class="n">threshold_value</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">selected_genepair</span><span class="p">,</span> <span class="n">selected_counts_matrix</span> <span class="o">=</span> <span class="n">bl</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">_preprocessing</span><span class="o">.</span><span class="n">selection_GRNandRNAseq</span><span class="p">(</span><span class="n">grn_filename</span><span class="p">,</span> <span class="n">rnaseq_filename</span><span class="p">,</span> <span class="n">counts_filename</span><span class="p">,</span> <span class="n">threshold_value</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="genome-wide-inference-procedure">
+<h2>Genome-wide inference procedure<a class="headerlink" href="#genome-wide-inference-procedure" title="Permalink to this heading">¶</a></h2>
+<section id="inference-function">
+<h3>Inference function<a class="headerlink" href="#inference-function" title="Permalink to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grn_filename</span> <span class="o">=</span>  <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/raw_data/selected_genepair.csv&#39;</span><span class="p">)</span>
+<span class="n">counts_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/raw_data/selected_counts_matrix.csv&#39;</span><span class="p">)</span>
+<span class="n">save_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/inference_results/feedback_infer_results.csv&#39;</span><span class="p">)</span>
+<span class="n">infer_results</span> <span class="o">=</span> <span class="n">bl</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">_burst_interactions</span><span class="o">.</span><span class="n">global_burst_link</span><span class="p">(</span><span class="n">grn_filename</span><span class="p">,</span> <span class="n">counts_filename</span><span class="p">,</span> <span class="n">save_filename</span><span class="p">,</span> <span class="n">verbose1</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">verbose2</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">verbose3</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">test</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">verbose4</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="inference-results-visualization">
+<h3>Inference results visualization<a class="headerlink" href="#inference-results-visualization" title="Permalink to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">read_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/inference_results/feedback_infer_results.csv&#39;</span><span class="p">)</span>
+<span class="n">counts_matrix</span> <span class="o">=</span> <span class="n">bl</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_plotting</span><span class="o">.</span><span class="n">network_umap_pre</span><span class="p">(</span><span class="n">read_filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/inference_results/network_data_umap.csv&#39;</span><span class="p">))</span>
+<span class="n">gene_interactions</span> <span class="o">=</span> <span class="n">bl</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_plotting</span><span class="o">.</span><span class="n">network_pre</span><span class="p">(</span><span class="n">read_filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/inference_results/network_data.csv&#39;</span><span class="p">))</span>
+<span class="n">burst_info</span> <span class="o">=</span> <span class="n">bl</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_plotting</span><span class="o">.</span><span class="n">burst_pre</span><span class="p">(</span><span class="n">read_filename</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/inference_results/burst_info.csv&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counts_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;primary_mouse_data/inference_results/network_data_umap.csv&quot;</span><span class="p">)</span>
+<span class="n">gene_interactions_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;primary_mouse_data/inference_results/network_data.csv&quot;</span><span class="p">)</span>
+<span class="n">burst_info_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;primary_mouse_data/inference_results/burst_info.csv&quot;</span><span class="p">)</span>
+<span class="n">degree_data_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;primary_mouse_data/inference_results/degree_data.csv&quot;</span><span class="p">)</span>
+<span class="n">network_figure</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;primary_mouse_data/inference_results/network_plot.png&quot;</span><span class="p">)</span> 
+<span class="n">bl</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">_plotting</span><span class="o">.</span><span class="n">network_visualization</span><span class="p">(</span><span class="n">counts_file</span><span class="p">,</span> <span class="n">gene_interactions_file</span><span class="p">,</span> <span class="n">burst_info_file</span><span class="p">,</span> <span class="n">degree_data_file</span><span class="p">,</span> <span class="n">network_figure</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;primary_mouse_data/inference_results/network_plot.png&quot;</span><span class="p">),</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/47a348a9a831b902093f52dccb15f8df4b5f3b474993e6748bd5216722f1c156.png" src="../../_images/47a348a9a831b902093f52dccb15f8df4b5f3b474993e6748bd5216722f1c156.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="downstream-analysis">
+<h2>Downstream analysis<a class="headerlink" href="#downstream-analysis" title="Permalink to this heading">¶</a></h2>
+<p>Based on our previously obtained inferences, we perform a series of downstream analyses and visualizations.</p>
+<section id="identify-gene-roles-tf-tg">
+<h3>Identify gene roles (TF, TG)<a class="headerlink" href="#identify-gene-roles-tf-tg" title="Permalink to this heading">¶</a></h3>
+<p>We identify the gene roles, transcriptional factor genes (TFs) and target genes (TGs), based on the inferred gene regulatory interactions network.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">degree_result_</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/inference_results/degree_data.csv&#39;</span><span class="p">))</span>
+<span class="n">bl</span><span class="o">.</span><span class="n">_utils</span><span class="o">.</span><span class="n">_plotting</span><span class="o">.</span><span class="n">gene_roles_heatmap</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">degree_result_</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/cd72f0c4519161752fe6697551bcd431a3ce0bb7688ca80ca88168c0bfedd3ce.png" src="../../_images/cd72f0c4519161752fe6697551bcd431a3ce0bb7688ca80ca88168c0bfedd3ce.png" />
+</div>
+</div>
+</section>
+<section id="busrting-manners-among-differenct-gene-regulatory-loops">
+<h3>Busrting manners among differenct gene regulatory loops<a class="headerlink" href="#busrting-manners-among-differenct-gene-regulatory-loops" title="Permalink to this heading">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">inference_result</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/inference_results/feedback_infer_results.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First, we visualize the inferred bursting information, and divide the genes into two groups based on average expression levels (high expression group, low expression group) to ensure unbiased comparison at the same level.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bl</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">scatterplot_burst</span><span class="p">(</span><span class="n">inference_result</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">],</span> <span class="kc">True</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.8</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.6</span><span class="p">,</span> <span class="mf">2.6</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/072144b9e75c10e67ec764b0bbba860536665a7028007a6f0a864caecc63d947.png" src="../../_images/072144b9e75c10e67ec764b0bbba860536665a7028007a6f0a864caecc63d947.png" />
+</div>
+</div>
+<p>Next, we predict expression variability and burst kinetics under different regulatory loop types for two groups (high expression group, low expression group) respectively.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bl</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">_downstream_analysis</span><span class="o">.</span><span class="n">interaction_burst_regression</span><span class="p">(</span><span class="n">inference_result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/6876612b7b9e8407364716ae0f2e8853e58e0c669f2da223a89b02e8cd8ff517.png" src="../../_images/6876612b7b9e8407364716ae0f2e8853e58e0c669f2da223a89b02e8cd8ff517.png" />
+</div>
+</div>
+<p>We compare expression variability and burst kinetics in different regulatory interactions types for two groups (high expression group, low expression group) respectively.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">burst_info_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/inference_results/burst_info.csv&#39;</span><span class="p">)</span>
+<span class="n">bl</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">_downstream_analysis</span><span class="o">.</span><span class="n">burst_interaction_overall</span><span class="p">(</span><span class="n">burst_info_file</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/21a8b455639a955a8c43b477d31e80686cbdc0810cc5cbf2c7e988c4febe9086.png" src="../../_images/21a8b455639a955a8c43b477d31e80686cbdc0810cc5cbf2c7e988c4febe9086.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(array([0.00050619]),
+ array([0.00179643]),
+ array([3.42874289e-06]),
+ array([7.94546738e-06]),
+ array([9.14997013e-07]),
+ array([4.4035818e-06]))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tf-binding-kinetics-analysis">
+<h3>TF binding kinetics analysis<a class="headerlink" href="#tf-binding-kinetics-analysis" title="Permalink to this heading">¶</a></h3>
+<p>We investigate how the binding dynamics of TF influence transcriptional bursting on a genome-wide level via two perspectives: (1) the affinity between TFs and the binding sites measured by the equilibrium binding constant r;</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">infer_result_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/inference_results/feedback_infer_results.csv&#39;</span><span class="p">)</span>
+<span class="n">burst_info</span> <span class="o">=</span> <span class="n">bl</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">_downstream_analysis</span><span class="o">.</span><span class="n">burst_info_summarize</span><span class="p">(</span><span class="n">infer_result_filename</span><span class="p">)</span>
+<span class="n">bl</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">_downstream_analysis</span><span class="o">.</span><span class="n">affinity_burst</span><span class="p">(</span><span class="n">burst_info</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/95275eeb9599108e1775deb41c9f3effa754416e65e3ebfb24075a8ca552a128.png" src="../../_images/95275eeb9599108e1775deb41c9f3effa754416e65e3ebfb24075a8ca552a128.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.009351319118099614,
+ 0.2768448636779833,
+ 7.754443114606798e-44,
+ 1.2033083388647786e-82)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 5760x4320 with 0 Axes&gt;
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 5760x4320 with 0 Axes&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>(2) the number of binding sites measured by the regulated-interaction level, the incoming regulated signals for each gene in the inferred regulatory network.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">readfile_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/inference_results/degree_data.csv&#39;</span><span class="p">)</span>
+<span class="n">bl</span><span class="o">.</span><span class="n">tools</span><span class="o">.</span><span class="n">_downstream_analysis</span><span class="o">.</span><span class="n">burst_interactionlevel_positive</span><span class="p">(</span><span class="n">readfile_name</span><span class="p">,</span> <span class="n">burst_info</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s1">&#39;primary_mouse_data/inference_results/sorted_indegree_cv2.csv&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 5760x4320 with 0 Axes&gt;
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 5760x4320 with 0 Axes&gt;
+</pre></div>
+</div>
+<img alt="../../_images/0f40b51e6127d263995ae8724ce059c09271227797187da63c8addbfa1a54cda.png" src="../../_images/0f40b51e6127d263995ae8724ce059c09271227797187da63c8addbfa1a54cda.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-0.017964188949593347,
+ 0.012483734364251008,
+ array([1.33245508e-37]),
+ array([3.24730477e-31]),
+ 1.0109692807688143e-29,
+ 2.472408331368363e-75)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="multi-omics_data_validation.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Single-cell multi-omics data for validation (mouse embryonic stem cells)</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Realistic Data</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, LiyingZhou
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Example of single-cell multi-omics data (primary mouse fibroblasts)</a><ul>
+<li><a class="reference internal" href="#data-preprocessing">Data preprocessing</a><ul>
+<li><a class="reference internal" href="#preprocessing-for-scrna-seq-data">Preprocessing for scRNA-seq data</a></li>
+<li><a class="reference internal" href="#preprocessing-for-scatac-seq-data">Preprocessing for scATAC-seq data</a></li>
+<li><a class="reference internal" href="#integration-of-selected-base-grn-and-filtered-scrna-seq-data">Integration of selected base-GRN and filtered scRNA-seq data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#genome-wide-inference-procedure">Genome-wide inference procedure</a><ul>
+<li><a class="reference internal" href="#inference-function">Inference function</a></li>
+<li><a class="reference internal" href="#inference-results-visualization">Inference results visualization</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#downstream-analysis">Downstream analysis</a><ul>
+<li><a class="reference internal" href="#identify-gene-roles-tf-tg">Identify gene roles (TF, TG)</a></li>
+<li><a class="reference internal" href="#busrting-manners-among-differenct-gene-regulatory-loops">Busrting manners among differenct gene regulatory loops</a></li>
+<li><a class="reference internal" href="#tf-binding-kinetics-analysis">TF binding kinetics analysis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=158ece9d"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/scripts/furo.js?v=5fa4622c"></script>
+    </body>
+</html>
