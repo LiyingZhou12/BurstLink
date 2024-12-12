@@ -7,12 +7,12 @@ It contains many intuitive visualization and downstream analysis tools, providin
 ### Gene regulatory interactions dictate transcriptional bursting
 Transcriptional bursts are inherently dynamic and stochastic processes, which are influenced by gene-gene regulatory interactions through transcription factors from other genes, ultimately driving highly heterogeneous gene expression within cells.  A question is to explore how dynamic gene-gene interaction-constructed regulatory network dictates bursting on a genome-wide scale. 
 
-<img src="/docs/_static/image/question.png" style="zoom:45%;" />
+<img src="/docs/_static/image/question.png" width="960" alt="Logo">
 
 ### Inference workflow 
 BurstLink is a user-friendly package without the hyperparameter tuning, which is mainly utilized to infer coupled dynamics of gene regulatory interactions and transcriptional bursting, given scRNA-seq data of any two genes (screened by scATAC-seq data, optional). BurstLink enables gene-pair inference and supports rapid whole-genome inference and a series of downstream analyses.
 
-<img src="/docs/_static/image/workflow.png" style="zoom:45%;" />
+<img src="/docs/_static/image/workflow.png" width="960" alt="Logo">
 
 ## Installation
 ### System requirements
