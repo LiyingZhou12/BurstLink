@@ -17,7 +17,7 @@ from _utils import _synthetic_data
 
 def global_burst_link(grn_filename, counts_filename, save_filename, verbose1, verbose2, verbose3, test, verbose4):
     """
-    Inferface for inferring dynamic information including gene regulatory interaction and bursting kinetics from scRNA-seq data of two genes.
+    Inferface for inferring global dynamic information including gene regulatory interaction and bursting kinetics from scRNA-seq data of two genes.
 
     Parameters
     ----------
@@ -46,7 +46,6 @@ def global_burst_link(grn_filename, counts_filename, save_filename, verbose1, ve
     Returns
     -------
     np.array(['gene1', 'gene2', 'feedback1', 'feedback2', 'kon1', 'kon2', 'koff1', 'koff2', 'ksyn1', 'ksyn2', 'w', 'bs1', 'bs2', 'bf1', 'bf2', 'cv1', 'cv2', 'convergence', 'corr', 'NMI', 'cmi_given_x1', 'cmi_given_x2', 'sign_givenx1', 'sign_givenx2'])
-
    """
     
     grn = pd.read_csv(grn_filename)
@@ -57,7 +56,7 @@ def global_burst_link(grn_filename, counts_filename, save_filename, verbose1, ve
     num = len(grn[:, 0])
     for index in np.arange(num):
         try:
-            geneinfo, counts_data =  genepair_info(grn, counts, index)
+            geneinfo, counts_data = genepair_info(grn, counts, index)
             result_ = genepair_inference(counts_data, geneinfo, index, verbose1, verbose2, verbose3, test)
             result__ = np.hstack([geneinfo, result_.reshape([1, 20])])
             results = np.vstack([results, result__])
@@ -69,6 +68,9 @@ def global_burst_link(grn_filename, counts_filename, save_filename, verbose1, ve
     else: return(results)
     
 def global_uni_burst_link(grn_filename, counts_filename, genename1, genename2, verbose1, verbose2, verbose3, test):
+    """
+    Inferface for inferring uni dynamic information including gene regulatory interaction and bursting kinetics from scRNA-seq data of two genes.
+    """
     grn = pd.read_csv(grn_filename)
     counts = pd.read_csv(counts_filename)
     grn = np.matrix(grn)[:, 1::]
@@ -172,6 +174,9 @@ def select_hdr(data):
     return (hdr_data)
 
 def genepair_burstinference(data):
+    """
+    Infer bursting kinetics for each gene.
+    """
     params0 = initialization(data)
     bnds = ((1e-4, 1e3),)*4 + ((0, 1e4),)*2 + ((-1e3, 1e3),)
     # Constraint conditions
@@ -463,17 +468,17 @@ def Binary_PoBe_Interactions(params, vals, figflag, genename1, genename2, verbos
     py = np.sum(pxy, axis=1)
     if (verbose1 == True) & ((verbose3 == 0) | (verbose3 == 2)):
         if (verbose2 == False):
-            fig, axes = plt.subplots(1, 3, figsize=(9, 3), dpi=900) 
+            fig, axes = plt.subplots(1, 3, figsize=(9, 3), dpi=300) 
             axes[0].pcolormesh(density, cmap=plt.cm.coolwarm, alpha=0.9)   
-            axes[0].set_title("Joint Probability distrbution", fontsize=9)
+            axes[0].set_title("Joint Probability distrbution", fontsize=7)
             axes[0].set_xlabel(genename1)
             axes[0].set_ylabel(genename2)
             axes[1].pcolormesh(rescale_py_givenx, cmap=plt.cm.coolwarm, alpha=0.9)   
-            axes[1].set_title("Rescaled Conditional Probability Given $X_1$", fontsize=9)
+            axes[1].set_title("Rescaled Conditional Probability Given $X_1$", fontsize=7)
             axes[1].set_xlabel(genename1)
             axes[1].set_ylabel(genename2)
             axes[2].pcolormesh(rescale_px_giveny, cmap=plt.cm.coolwarm, alpha=0.9)
-            axes[2].set_title("Rescaled Conditional Probability Given $X_2$", fontsize=9)
+            axes[2].set_title("Rescaled Conditional Probability Given $X_2$", fontsize=7)
             axes[2].set_xlabel(genename2)
             axes[2].set_ylabel(genename1)
             plt.tight_layout()
@@ -628,8 +633,3 @@ def Binary_PoBe(params, vals):
     px = np.sum(pxy, axis=0)
     py = np.sum(pxy, axis=1)
     return (pxy, px, py)
-
-
-
-
-
