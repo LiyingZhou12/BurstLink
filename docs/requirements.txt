@@ -1,4 +1,4 @@
-sphinx
+sphinx>=7.1.2
 sphinx_rtd_theme
 sphinx_mdinclude
 sphinx_autodoc_typehints
@@ -7,8 +7,10 @@ nbsphinx
 sphinx_gallery
 furo
 myst_nb
+jupyter-cache
+jupyter-client
+nbformat
 matplotlib==3.8.4
-networkx==3.2.1
 numpy==1.23.1
 pandas==1.5.0
 plotly==5.21.0
