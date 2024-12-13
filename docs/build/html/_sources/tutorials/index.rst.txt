@@ -15,4 +15,3 @@ These are some example scripts using the BurstLink package, which illustrates so
 
    simulated_data/index
    realistic_data/index
-   
