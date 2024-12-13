@@ -11,7 +11,7 @@ Welcome to BurstLink's documentation!
    :alt: PyPI
 
 .. image:: https://img.shields.io/pypi/pyversions/burstlink
-   :target: https://pypi.org/project/burstlink/
+   :target: https://pypi.org/project/burstlink/0.4.0/
    :alt: PyPI - Python Version
 
 .. image:: https://img.shields.io/pypi/wheel/burstlink
@@ -56,7 +56,7 @@ whole-genome inference and a series of downstream analyses.
 New
 ===
 
-- Dec 12, 2024: We released BurstLink version 0.2.1. This version standardizes function names and fixes some bugs.
+- Dec 12, 2024: We released BurstLink version 0.4.0. This version standardizes function names and fixes some bugs.
 
 BurstLink's features
 ====================
