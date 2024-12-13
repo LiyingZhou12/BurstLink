@@ -3,4 +3,4 @@ furo
 myst-parser
 nbsphinx
 sphinx_rtd_theme
-sphinx_autodoc_typehints
+sphinx_autodoc
