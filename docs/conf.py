@@ -16,7 +16,7 @@ sys.path[:0] = [str(HERE.parent)]
 project = 'BurstLink'
 copyright = '2024, LiyingZhou'
 author = 'LiyingZhou'
-release = '0.2.1'
+release = '0.4.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -34,7 +34,14 @@ source_suffix = {
     '.ipynb': 'myst-nb',
 }
 templates_path = ['_templates']
-exclude_patterns = ['build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = [
+    'build',
+    '_build',
+    '_build/jupyter_execute/**',
+    'Thumbs.db',
+    '.DS_Store',
+    'api/burstlink.rst', 
+]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
