@@ -1,0 +1,955 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
+
+    <!-- Generated with Sphinx 7.1.2 and Furo 2024.08.06 -->
+        <title>burstlink.tools._burst_interactions - BurstLink 0.4.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=354aac6f" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/css/override.css?v=46f5334b" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-brand-primary: #357473;
+  --color-brand-content: #357473;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">BurstLink 0.4.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../_static/logo.png" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Tutorials</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../tutorials/simulated_data/index.html">Simulated Data</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Simulated Data</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/simulated_data/example_1.html">Example 1 (Synthetic data via SSA)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/simulated_data/example_2.html">Example 2 (Synthetic data via Gibbs sampling)</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../tutorials/realistic_data/index.html">Realistic Data</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Realistic Data</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/realistic_data/multi-omics_data.html">Example of single-cell multi-omics data (primary mouse fibroblasts)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/realistic_data/multi-omics_data_validation.html">Single-cell multi-omics data for validation (mouse embryonic stem cells)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api/index.html">API Documentation</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of API Documentation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.preprocessing.select_genepair_grn.html">burstlink.preprocessing.select_genepair_grn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.preprocessing.integration_grn.html">burstlink.preprocessing.integration_grn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.preprocessing.RNAseq_analysis.html">burstlink.preprocessing.RNAseq_analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.preprocessing.selection_GRNandRNAseq.html">burstlink.preprocessing.selection_GRNandRNAseq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.preprocessing.comparison.html">burstlink.preprocessing.comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.tools.global_burst_link.html">burstlink.tools.global_burst_link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.tools.global_uni_burst_link.html">burstlink.tools.global_uni_burst_link</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.tools.genepair_inference.html">burstlink.tools.genepair_inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.tools.genepair_burstinference.html">burstlink.tools.genepair_burstinference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.tools.genepair_interactionsinference.html">burstlink.tools.genepair_interactionsinference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.tools.ks_2samp.html">burstlink.tools.ks_2samp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.tools.tf_tg_analysis.html">burstlink.tools.tf_tg_analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.tools.interaction_burst_regression.html">burstlink.tools.interaction_burst_regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.tools.burst_interaction_overall.html">burstlink.tools.burst_interaction_overall</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.tools.affinity_burst.html">burstlink.tools.affinity_burst</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.tools.burst_interactionlevel_positive.html">burstlink.tools.burst_interactionlevel_positive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.tools.dge_analysis.html">burstlink.tools.dge_analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.plotting.network_visualization.html">burstlink.plotting.network_visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.plotting.TFs_interactiontype_network.html">burstlink.plotting.TFs_interactiontype_network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.plotting.scatterplot_burst.html">burstlink.plotting.scatterplot_burst</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.plotting.html">burstlink.plotting package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.preprocessing.html">burstlink.preprocessing package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/burstlink.tools.html">burstlink.tools package</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for burstlink.tools._burst_interactions</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">math</span><span class="o">,</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">poisson</span><span class="p">,</span> <span class="n">norm</span><span class="p">,</span> <span class="n">gaussian_kde</span><span class="p">,</span> <span class="n">spearmanr</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">j_roots</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">beta</span> <span class="k">as</span> <span class="n">beta_fun</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics.cluster</span> <span class="kn">import</span> <span class="n">normalized_mutual_info_score</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.transforms</span> <span class="kn">import</span> <span class="n">Affine2D</span>
+
+<span class="kn">from</span> <span class="nn">_utils</span> <span class="kn">import</span> <span class="n">_synthetic_data</span>
+
+
+<div class="viewcode-block" id="global_burst_link"><a class="viewcode-back" href="../../../api/burstlink.tools.global_burst_link.html#burstlink.tools.global_burst_link">[docs]</a><span class="k">def</span> <span class="nf">global_burst_link</span><span class="p">(</span><span class="n">grn_filename</span><span class="p">,</span> <span class="n">counts_filename</span><span class="p">,</span> <span class="n">save_filename</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">,</span> <span class="n">test</span><span class="p">,</span> <span class="n">verbose4</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Inferface for inferring global dynamic information including gene regulatory interaction and bursting kinetics from scRNA-seq data of two genes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    grn_filename</span>
+<span class="sd">        The optional input for base-GRN based on scATAC-seq.</span>
+<span class="sd">    counts_filename</span>
+<span class="sd">        The input for scRNA-seq data file.</span>
+<span class="sd">    save_filename</span>
+<span class="sd">        The saved inferred file name.</span>
+<span class="sd">    verbose1</span>
+<span class="sd">        Whether to output images.</span>
+<span class="sd">        If False, only the inferred results are outputed. If True, the inferred results with visualization images are outputed.</span>
+<span class="sd">    verbose2</span>
+<span class="sd">        Whether to save images.</span>
+<span class="sd">        If False, the images are only shown in the runtime screen. If True, the images are saved as pdf format in a folder under the default path.</span>
+<span class="sd">    verbose3</span>
+<span class="sd">        Whether to exhibit all images.</span>
+<span class="sd">        If 0, all images are exhibited. If 1, only visualization images are exhibited.</span>
+<span class="sd">    test</span>
+<span class="sd">        Whether to perform distributional test.</span>
+<span class="sd">        If False, distribution test is not performed. If True, gibbs samples are generated and distribution test is performed.</span>
+<span class="sd">    verbose4</span>
+<span class="sd">        Whether to save the inferred results.</span>
+<span class="sd">        If False, the inferred results are not saved. If True, the inferred results are saved as csv format in a folder under the default path.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array([&#39;gene1&#39;, &#39;gene2&#39;, &#39;feedback1&#39;, &#39;feedback2&#39;, &#39;kon1&#39;, &#39;kon2&#39;, &#39;koff1&#39;, &#39;koff2&#39;, &#39;ksyn1&#39;, &#39;ksyn2&#39;, &#39;w&#39;, &#39;bs1&#39;, &#39;bs2&#39;, &#39;bf1&#39;, &#39;bf2&#39;, &#39;cv1&#39;, &#39;cv2&#39;, &#39;convergence&#39;, &#39;corr&#39;, &#39;NMI&#39;, &#39;cmi_given_x1&#39;, &#39;cmi_given_x2&#39;, &#39;sign_givenx1&#39;, &#39;sign_givenx2&#39;])</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+    
+    <span class="n">grn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">grn_filename</span><span class="p">)</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">counts_filename</span><span class="p">)</span>
+    <span class="n">grn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">grn</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">::]</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">counts</span><span class="p">)[:,</span> <span class="mi">2</span><span class="p">::]</span>
+    <span class="n">results</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;gene1&#39;</span><span class="p">,</span> <span class="s1">&#39;gene2&#39;</span><span class="p">,</span> <span class="s1">&#39;feedback1&#39;</span><span class="p">,</span> <span class="s1">&#39;feedback2&#39;</span><span class="p">,</span> <span class="s1">&#39;kon1&#39;</span><span class="p">,</span> <span class="s1">&#39;kon2&#39;</span><span class="p">,</span> <span class="s1">&#39;koff1&#39;</span><span class="p">,</span> <span class="s1">&#39;koff2&#39;</span><span class="p">,</span> <span class="s1">&#39;ksyn1&#39;</span><span class="p">,</span> <span class="s1">&#39;ksyn2&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="s1">&#39;bs1&#39;</span><span class="p">,</span> <span class="s1">&#39;bs2&#39;</span><span class="p">,</span> <span class="s1">&#39;bf1&#39;</span><span class="p">,</span> <span class="s1">&#39;bf2&#39;</span><span class="p">,</span> <span class="s1">&#39;cv1&#39;</span><span class="p">,</span> <span class="s1">&#39;cv2&#39;</span><span class="p">,</span> <span class="s1">&#39;convergence&#39;</span><span class="p">,</span> <span class="s1">&#39;corr&#39;</span><span class="p">,</span> <span class="s1">&#39;NMI&#39;</span><span class="p">,</span> <span class="s1">&#39;cmi_given_x1&#39;</span><span class="p">,</span> <span class="s1">&#39;cmi_given_x2&#39;</span><span class="p">,</span> <span class="s1">&#39;sign_givenx1&#39;</span><span class="p">,</span> <span class="s1">&#39;sign_givenx2&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">24</span><span class="p">])</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">grn</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">geneinfo</span><span class="p">,</span> <span class="n">counts_data</span> <span class="o">=</span> <span class="n">genepair_info</span><span class="p">(</span><span class="n">grn</span><span class="p">,</span> <span class="n">counts</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+            <span class="n">result_</span> <span class="o">=</span> <span class="n">genepair_inference</span><span class="p">(</span><span class="n">counts_data</span><span class="p">,</span> <span class="n">geneinfo</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
+            <span class="n">result__</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">geneinfo</span><span class="p">,</span> <span class="n">result_</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">])])</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">results</span><span class="p">,</span> <span class="n">result__</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span> <span class="k">continue</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">verbose4</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">save_filename</span><span class="p">)</span> 
+        <span class="k">return</span> <span class="p">(</span><span class="n">results</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="k">return</span><span class="p">(</span><span class="n">results</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="global_uni_burst_link"><a class="viewcode-back" href="../../../api/burstlink.tools.global_uni_burst_link.html#burstlink.tools.global_uni_burst_link">[docs]</a><span class="k">def</span> <span class="nf">global_uni_burst_link</span><span class="p">(</span><span class="n">grn_filename</span><span class="p">,</span> <span class="n">counts_filename</span><span class="p">,</span> <span class="n">genename1</span><span class="p">,</span> <span class="n">genename2</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">,</span> <span class="n">test</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Inferface for inferring uni dynamic information including gene regulatory interaction and bursting kinetics from scRNA-seq data of two genes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">grn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">grn_filename</span><span class="p">)</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">counts_filename</span><span class="p">)</span>
+    <span class="n">grn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">grn</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">::]</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">counts</span><span class="p">)[:,</span> <span class="mi">2</span><span class="p">::]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">index1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">grn</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">genename1</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>  
+        <span class="n">index2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">grn</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">genename2</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>   
+        <span class="n">index</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">index1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">index2</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">_global_uni_burst_link</span><span class="p">(</span><span class="n">grn_filename</span><span class="p">,</span> <span class="n">counts_filename</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;can not find genepair information&#39;</span><span class="p">)</span></div>
+    
+<span class="k">def</span> <span class="nf">_global_uni_burst_link</span><span class="p">(</span><span class="n">grn_filename</span><span class="p">,</span> <span class="n">counts_filename</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">,</span> <span class="n">test</span><span class="p">):</span>
+    <span class="n">grn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">grn_filename</span><span class="p">)</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">counts_filename</span><span class="p">)</span>
+    <span class="n">grn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">grn</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">::]</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">counts</span><span class="p">)[:,</span> <span class="mi">2</span><span class="p">::]</span>
+    <span class="n">geneinfo</span><span class="p">,</span> <span class="n">counts_data</span> <span class="o">=</span>  <span class="n">genepair_info</span><span class="p">(</span><span class="n">grn</span><span class="p">,</span> <span class="n">counts</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+    <span class="n">result_</span> <span class="o">=</span> <span class="n">genepair_inference</span><span class="p">(</span><span class="n">counts_data</span><span class="p">,</span> <span class="n">geneinfo</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">,</span> <span class="n">test</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">geneinfo</span><span class="p">,</span> <span class="n">result_</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">])])</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">genepair_info</span><span class="p">(</span><span class="n">grn</span><span class="p">,</span> <span class="n">counts</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="n">gene1</span> <span class="o">=</span> <span class="n">grn</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">gene2</span> <span class="o">=</span> <span class="n">grn</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">geneinfo</span> <span class="o">=</span> <span class="n">grn</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">index1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">counts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">gene1</span><span class="p">)</span>    
+    <span class="n">index2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">counts</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">gene2</span><span class="p">)</span>    
+    <span class="n">counts_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">counts</span><span class="p">[</span><span class="n">index1</span><span class="p">,</span> <span class="mi">1</span><span class="p">::]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span> <span class="n">counts</span><span class="p">[</span><span class="n">index2</span><span class="p">,</span> <span class="mi">1</span><span class="p">::]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)])</span>  
+    <span class="n">nan_indices1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">counts_data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]))[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">nan_indices2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">counts_data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]))[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">nan_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">nan_indices1</span><span class="p">)</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">nan_indices2</span><span class="p">))</span>
+    <span class="n">counts_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">counts_data</span><span class="p">,</span> <span class="n">nan_indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">counts_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">counts_data</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">geneinfo</span><span class="p">,</span> <span class="n">counts_data</span><span class="p">)</span>
+
+<div class="viewcode-block" id="genepair_inference"><a class="viewcode-back" href="../../../api/burstlink.tools.genepair_inference.html#burstlink.tools.genepair_inference">[docs]</a><span class="k">def</span> <span class="nf">genepair_inference</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">geneinfo</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">,</span> <span class="n">test</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infer dynamic information including gene regulatory interaction and bursting kinetics from scRNA-seq data of two genes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vals</span>
+<span class="sd">        The data matrix of shape 2 × columns.</span>
+<span class="sd">        Rows correspond to genes or spots and columns to cells.</span>
+<span class="sd">    geneinfo</span>
+<span class="sd">        The priori information from the base-GRN built from scATAC-seq data, containing names and regulatory types of two genes.</span>
+<span class="sd">    figflag</span>
+<span class="sd">        The index of the outputed images name.</span>
+<span class="sd">        If choose not to output the images, the default value is 0.</span>
+<span class="sd">    verbose1</span>
+<span class="sd">        Whether to output images.</span>
+<span class="sd">        If False, only the inferred results are outputed. If True, the inferred results with visualization images are outputed.</span>
+<span class="sd">    verbose2</span>
+<span class="sd">        Whether to save images.</span>
+<span class="sd">        If False, the images are only shown in the runtime screen. If True, the images are saved as pdf format in a folder under the default path.</span>
+<span class="sd">    verbose3</span>
+<span class="sd">        Whether to exhibit all images.</span>
+<span class="sd">        If 0, all images are exhibited. If 1, only visualization images are exhibited.</span>
+<span class="sd">    test</span>
+<span class="sd">        Whether to perform distributional test.</span>
+<span class="sd">        If False, distribution test is not performed. If True, gibbs samples are generated and distribution test is performed.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array([&#39;gene1&#39;, &#39;gene2&#39;, &#39;feedback1&#39;, &#39;feedback2&#39;, &#39;kon1&#39;, &#39;kon2&#39;, &#39;koff1&#39;, &#39;koff2&#39;, &#39;ksyn1&#39;, &#39;ksyn2&#39;, &#39;w&#39;, &#39;bf1&#39;, &#39;bf2&#39;, &#39;bs1&#39;, &#39;bs2&#39;, &#39;cv1&#39;, &#39;cv2&#39;, &#39;convergence&#39;, &#39;corr&#39;, &#39;NMI&#39;, &#39;cmi_given_x1&#39;, &#39;cmi_given_x2&#39;, &#39;sign_givenx1&#39;, &#39;sign_givenx2&#39;])</span>
+
+<span class="sd">   &quot;&quot;&quot;</span>
+   
+    <span class="n">truncated_data</span> <span class="o">=</span> <span class="n">pre_truncation</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+    <span class="n">bursting_results</span> <span class="o">=</span> <span class="n">genepair_burstinference</span><span class="p">(</span><span class="n">truncated_data</span><span class="p">)</span>
+    <span class="c1"># bursting_results = [alpha1, alpha2, beta1, beta2, phi1, phi2, w, bf1, bf2, bs1, bs2, cv1, cv2, convergence_success]</span>
+    <span class="n">interactions_results</span> <span class="o">=</span> <span class="n">genepair_interactionsinference</span><span class="p">(</span><span class="n">truncated_data</span><span class="p">,</span> <span class="n">geneinfo</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">)</span>
+    <span class="c1"># interactions_results = [corr, nmi, cmi_given_x1, cmi_given_x2, sign_givenx1, sign_givenx2]</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bursting_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span> <span class="n">Binary_PoBe_Interactions</span><span class="p">(</span><span class="n">bursting_results</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="mi">7</span><span class="p">],</span> <span class="n">truncated_data</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="n">geneinfo</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">geneinfo</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">test</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">bursting_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span> <span class="n">ks_distance</span><span class="p">,</span> <span class="n">h0</span> <span class="o">=</span> <span class="n">distribution_fit</span><span class="p">(</span><span class="n">truncated_data</span><span class="p">,</span> <span class="n">interactions_results</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="mi">7</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="n">bursting_results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span> <span class="n">ks_distance</span><span class="p">,</span> <span class="n">h0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">bursting_results</span><span class="p">,</span> <span class="n">interactions_results</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ks_distance</span><span class="p">,</span> <span class="n">h0</span><span class="p">)]))</span>
+    <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">bursting_results</span><span class="p">,</span> <span class="n">interactions_results</span><span class="p">]))</span></div>
+
+<span class="k">def</span> <span class="nf">pre_truncation</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
+    <span class="n">boundary_value1</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]))</span>
+    <span class="n">boundary_value2</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]))</span>
+    <span class="n">indices1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">&gt;</span> <span class="n">boundary_value1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">indices2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">&gt;</span> <span class="n">boundary_value2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">indices1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">indices2</span><span class="p">))</span>
+    <span class="n">truncated_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Select the HDR of the data</span>
+    <span class="n">hdr_data</span> <span class="o">=</span> <span class="n">select_hdr</span><span class="p">(</span><span class="n">truncated_vals</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">hdr_data</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">select_hdr</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">density</span> <span class="o">=</span> <span class="n">kde</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="c1"># Identify data points with density above the threshold</span>
+    <span class="n">density_threshold</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">density</span><span class="p">)[</span><span class="nb">round</span><span class="p">(</span><span class="mf">0.01</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]))]</span>
+    <span class="n">hdr_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">density</span> <span class="o">&gt;=</span> <span class="n">density_threshold</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">hdr_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="n">hdr_indices</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">hdr_data</span><span class="p">)</span>
+
+<div class="viewcode-block" id="genepair_burstinference"><a class="viewcode-back" href="../../../api/burstlink.tools.genepair_burstinference.html#burstlink.tools.genepair_burstinference">[docs]</a><span class="k">def</span> <span class="nf">genepair_burstinference</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infer bursting kinetics for each gene.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">params0</span> <span class="o">=</span> <span class="n">initialization</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">bnds</span> <span class="o">=</span> <span class="p">((</span><span class="mf">1e-4</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">),)</span><span class="o">*</span><span class="mi">4</span> <span class="o">+</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1e4</span><span class="p">),)</span><span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="p">((</span><span class="o">-</span><span class="mf">1e3</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">),)</span>
+    <span class="c1"># Constraint conditions</span>
+    <span class="n">cons</span> <span class="o">=</span> <span class="p">({</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">params</span><span class="p">:</span> <span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">-</span> <span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]},</span>
+            <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;ineq&#39;</span><span class="p">,</span> <span class="s1">&#39;fun&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">params</span><span class="p">:</span> <span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span> <span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]})</span>
+    <span class="n">vals_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> 
+    <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span> <span class="o">=</span> <span class="ne">RuntimeWarning</span><span class="p">)</span>
+        <span class="n">ll</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">log_likelihood</span><span class="p">,</span> <span class="n">params0</span><span class="p">,</span> <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="n">vals_</span><span class="p">),</span> <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;SLSQP&#39;</span><span class="p">,</span> <span class="n">constraints</span> <span class="o">=</span> <span class="n">cons</span><span class="p">,</span> <span class="n">bounds</span> <span class="o">=</span> <span class="n">bnds</span><span class="p">)</span>
+    <span class="n">estim</span> <span class="o">=</span> <span class="n">ll</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">success</span> <span class="o">=</span> <span class="n">ll</span><span class="o">.</span><span class="n">success</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">success</span> <span class="o">==</span> <span class="s1">&#39;True&#39;</span><span class="p">):</span> <span class="n">convergence</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">convergence</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">alpha1</span><span class="p">,</span> <span class="n">alpha2</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">phi1</span><span class="p">,</span> <span class="n">phi2</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">estim</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="mi">7</span><span class="p">]</span>
+    <span class="n">bf1</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">estim</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">estim</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">bf2</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">estim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">estim</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+    <span class="n">bs1</span> <span class="o">=</span> <span class="n">estim</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">/</span> <span class="n">estim</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">bs2</span> <span class="o">=</span> <span class="n">estim</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">/</span> <span class="n">estim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">cv1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span> <span class="o">/</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">cv2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span> <span class="o">/</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]))</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">infer_results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">alpha1</span><span class="p">,</span> <span class="n">alpha2</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">phi1</span><span class="p">,</span> <span class="n">phi2</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">bf1</span><span class="p">,</span> <span class="n">bf2</span><span class="p">,</span> <span class="n">bs1</span><span class="p">,</span> <span class="n">bs2</span><span class="p">,</span> <span class="n">cv1</span><span class="p">,</span> <span class="n">cv2</span><span class="p">,</span> <span class="n">convergence</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">infer_results</span><span class="p">)</span></div>
+
+<span class="k">def</span> <span class="nf">uni_poisson</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">1e6</span><span class="p">):</span> <span class="k">return</span> <span class="p">(</span><span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="p">(</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">m</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">uni_pobe</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">alpha_</span><span class="p">,</span> <span class="n">beta_</span><span class="p">,</span> <span class="n">phi_</span><span class="p">):</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="n">vals</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">),</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">j_roots</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="n">beta_</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">alpha_</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">gs_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">uni_poisson</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">phi_</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">beta_fun</span><span class="p">(</span><span class="n">alpha_</span><span class="p">,</span> <span class="n">beta_</span><span class="p">)</span><span class="o">+</span><span class="mf">1e-12</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="n">alpha_</span> <span class="o">-</span> <span class="n">beta_</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">gs_</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">prob</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">uni_moment_inference</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">vals</span><span class="p">))</span>
+    <span class="n">m2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">vals</span> <span class="o">*</span> <span class="p">(</span><span class="n">vals</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">))</span>
+    <span class="n">m3</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">vals</span> <span class="o">*</span> <span class="p">(</span><span class="n">vals</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">vals</span> <span class="o">-</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">))</span>
+    <span class="n">r1</span> <span class="o">=</span> <span class="n">m1</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">m2</span> <span class="o">/</span> <span class="n">m1</span>
+    <span class="n">r3</span> <span class="o">=</span> <span class="n">m3</span> <span class="o">/</span> <span class="n">m2</span>
+    <span class="n">alpha_est</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r1</span><span class="o">*</span><span class="p">(</span><span class="n">r3</span><span class="o">-</span><span class="n">r2</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">r1</span><span class="o">*</span><span class="n">r2</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">r1</span><span class="o">*</span><span class="n">r3</span><span class="o">+</span><span class="n">r2</span><span class="o">*</span><span class="n">r3</span><span class="p">)</span>
+    <span class="n">beta_est</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">r3</span><span class="o">-</span><span class="n">r2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">r1</span><span class="o">-</span><span class="n">r3</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">r2</span><span class="o">-</span><span class="n">r1</span><span class="p">))</span> <span class="o">/</span> <span class="p">((</span><span class="n">r1</span><span class="o">*</span><span class="n">r2</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">r1</span><span class="o">*</span><span class="n">r3</span><span class="o">+</span><span class="n">r2</span><span class="o">*</span><span class="n">r3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">r1</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">r2</span><span class="o">+</span><span class="n">r3</span><span class="p">))</span>
+    <span class="n">phi_est</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r1</span><span class="o">*</span><span class="n">r3</span><span class="o">-</span><span class="n">r1</span><span class="o">*</span><span class="n">r2</span><span class="o">-</span><span class="n">r2</span><span class="o">*</span><span class="n">r3</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">r1</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">r2</span><span class="o">+</span><span class="n">r3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">alpha_est</span><span class="p">,</span> <span class="n">beta_est</span><span class="p">,</span> <span class="n">phi_est</span><span class="p">]))</span>
+
+<span class="k">def</span> <span class="nf">uni_loglikelihood</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span>
+    <span class="n">alpha_</span><span class="p">,</span> <span class="n">beta_</span><span class="p">,</span> <span class="n">phi_</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="mi">3</span><span class="p">]</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">uni_pobe</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">alpha_</span><span class="p">,</span> <span class="n">beta_</span><span class="p">,</span> <span class="n">phi_</span><span class="p">)</span>
+    <span class="n">uni_loglikelihood_</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">prob</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">uni_loglikelihood_</span><span class="p">)</span>
+  
+<span class="k">def</span> <span class="nf">uni_maximum_likelihood</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="n">uni_moment_inference</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+    <span class="n">bnds</span> <span class="o">=</span> <span class="p">((</span><span class="mf">1e-3</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">),</span> <span class="p">(</span><span class="mf">1e-3</span><span class="p">,</span> <span class="mf">1e3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1e4</span><span class="p">))</span>
+    <span class="n">vals_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>  
+    <span class="k">try</span><span class="p">:</span> <span class="n">ll</span> <span class="o">=</span> <span class="n">minimize</span><span class="p">(</span><span class="n">uni_loglikelihood</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">vals_</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;L-BFGS-B&#39;</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="n">bnds</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">ll</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">initialization</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
+    <span class="n">mle1</span> <span class="o">=</span> <span class="n">uni_maximum_likelihood</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
+    <span class="n">mle2</span> <span class="o">=</span> <span class="n">uni_maximum_likelihood</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+    <span class="n">alpha1</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">phi1</span> <span class="o">=</span> <span class="n">mle1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="mi">3</span><span class="p">]</span>
+    <span class="n">alpha2</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">phi2</span> <span class="o">=</span> <span class="n">mle2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="mi">3</span><span class="p">]</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="nb">float</span><span class="p">((((</span><span class="n">alpha1</span> <span class="o">+</span> <span class="n">beta1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">alpha2</span> <span class="o">+</span> <span class="n">beta2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">alpha1</span> <span class="o">+</span> <span class="n">beta1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">alpha2</span> <span class="o">+</span> <span class="n">beta2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">cov</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">phi1</span> <span class="o">*</span> <span class="n">phi2</span> <span class="o">*</span> <span class="n">alpha1</span> <span class="o">*</span> <span class="n">alpha2</span> <span class="o">*</span> <span class="n">beta1</span> <span class="o">*</span> <span class="n">beta2</span><span class="p">))</span>  
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">alpha1</span><span class="p">,</span> <span class="n">alpha2</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">phi1</span><span class="p">,</span> <span class="n">phi2</span><span class="p">,</span> <span class="n">w</span><span class="p">]))</span>
+
+<span class="k">def</span> <span class="nf">log_likelihood</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">alpha1</span><span class="p">,</span> <span class="n">alpha2</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span> <span class="mi">4</span><span class="p">]</span>
+    <span class="n">phi1</span><span class="p">,</span> <span class="n">phi2</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span> <span class="mi">6</span><span class="p">]</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">alpha1_</span> <span class="o">=</span> <span class="n">alpha1</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">alpha2_</span> <span class="o">=</span> <span class="n">alpha2</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">mu1</span> <span class="o">=</span> <span class="n">alpha1</span> <span class="o">/</span> <span class="p">(</span><span class="n">alpha1</span> <span class="o">+</span> <span class="n">beta1</span><span class="p">)</span>
+    <span class="n">mu2</span> <span class="o">=</span> <span class="n">alpha2</span> <span class="o">/</span> <span class="p">(</span><span class="n">alpha2</span> <span class="o">+</span> <span class="n">beta2</span><span class="p">)</span>
+    <span class="n">prob1</span> <span class="o">=</span> <span class="n">uni_pobe</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">alpha1</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">phi1</span><span class="p">)</span>
+    <span class="n">prob2</span> <span class="o">=</span> <span class="n">uni_pobe</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">alpha2</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">phi2</span><span class="p">)</span>
+    <span class="n">prob1_</span> <span class="o">=</span> <span class="n">uni_pobe</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">alpha1_</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">phi1</span><span class="p">)</span>
+    <span class="n">prob2_</span> <span class="o">=</span> <span class="n">uni_pobe</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">alpha2_</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">phi2</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">w</span> <span class="o">*</span> <span class="n">mu1</span> <span class="o">*</span> <span class="n">mu2</span>
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">prob1</span> <span class="o">*</span> <span class="n">prob2</span> <span class="o">+</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob1_</span> <span class="o">-</span> <span class="n">prob1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob2_</span> <span class="o">-</span> <span class="n">prob2</span><span class="p">)</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">prob</span> <span class="o">&lt;</span> <span class="mf">1e-12</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">prob_</span> <span class="o">=</span> <span class="n">prob</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">prob_</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<div class="viewcode-block" id="genepair_interactionsinference"><a class="viewcode-back" href="../../../api/burstlink.tools.genepair_interactionsinference.html#burstlink.tools.genepair_interactionsinference">[docs]</a><span class="k">def</span> <span class="nf">genepair_interactionsinference</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">geneinfo</span><span class="p">,</span> <span class="n">filter_eps</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infer gene regulatory interactions and regulation visualization.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data</span>
+<span class="sd">        The data matrix of shape 2 × columns.</span>
+<span class="sd">        Rows correspond to genes or spots and columns to cells.</span>
+<span class="sd">    geneinfo</span>
+<span class="sd">        The priori information from the base-GRN built from scATAC-seq data, containing names and regulatory types of two genes.</span>
+<span class="sd">    filter_eps</span>
+<span class="sd">        DREMI filter noise threshold and default value is 0.4</span>
+<span class="sd">    figflag</span>
+<span class="sd">        The index of the outputed images name.</span>
+<span class="sd">        If choose not to output the images, the default value is 0.</span>
+<span class="sd">    verbose1</span>
+<span class="sd">        Whether to output images.</span>
+<span class="sd">        If False, only the inferred results are outputed. If True, the inferred results with visualization images are outputed.</span>
+<span class="sd">    verbose2</span>
+<span class="sd">        Whether to save images.</span>
+<span class="sd">        If False, the images are only shown in the runtime screen. If True, the images are saved as pdf format in a folder under the default path.</span>
+<span class="sd">    verbose3</span>
+<span class="sd">        Whether to  exhibit all images.</span>
+<span class="sd">        If 0, all images are exhibited. If 1, only visualization images are exhibited.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    np.array([corr, nmi, cmi_given_x1, cmi_given_x2, sign_givenx1, sign_givenx2])</span>
+<span class="sd">    </span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   
+    <span class="n">density</span> <span class="o">=</span> <span class="n">density_estimation</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">verbose2</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span> <span class="n">heatmap</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">geneinfo</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">geneinfo</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># Calculate conditional probability</span>
+    <span class="n">px2_given_x1</span> <span class="o">=</span> <span class="n">density</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">px1_given_x2</span> <span class="o">=</span> <span class="n">density</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">density</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">rescale_density_given_x1</span><span class="p">,</span> <span class="n">sign_given_x1</span> <span class="o">=</span> <span class="n">rescale_density</span><span class="p">(</span><span class="n">px2_given_x1</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">geneinfo</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]),</span> <span class="n">figflag</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">geneinfo</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">geneinfo</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">rescale_density_given_x2</span><span class="p">,</span> <span class="n">sign_given_x2</span> <span class="o">=</span> <span class="n">rescale_density</span><span class="p">(</span><span class="n">px1_given_x2</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">geneinfo</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]),</span> <span class="n">figflag</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">geneinfo</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">geneinfo</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># Regulaotry interactions</span>
+    <span class="n">sample_given_x1</span> <span class="o">=</span> <span class="n">resample</span><span class="p">(</span><span class="n">rescale_density_given_x1</span><span class="p">,</span> <span class="n">filter_eps</span><span class="p">)</span>
+    <span class="n">sample_given_x2</span> <span class="o">=</span> <span class="n">resample</span><span class="p">(</span><span class="n">rescale_density_given_x2</span><span class="p">,</span> <span class="n">filter_eps</span><span class="p">)</span>
+    <span class="n">cmi_given_x1</span> <span class="o">=</span> <span class="n">conditional_mutualinfo</span><span class="p">(</span><span class="n">sample_given_x1</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">)</span>
+    <span class="n">cmi_given_x2</span> <span class="o">=</span> <span class="n">conditional_mutualinfo</span><span class="p">(</span><span class="n">sample_given_x2</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">)</span>
+    <span class="n">corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">nmi</span> <span class="o">=</span> <span class="n">normalized_mutual_info_score</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">corr</span><span class="p">,</span> <span class="n">nmi</span><span class="p">,</span> <span class="n">cmi_given_x1</span><span class="p">,</span> <span class="n">cmi_given_x2</span><span class="p">,</span> <span class="n">sign_given_x1</span><span class="p">,</span> <span class="n">sign_given_x2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">results</span><span class="p">)</span></div>
+
+<span class="k">def</span> <span class="nf">density_estimation</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">kde</span> <span class="o">=</span> <span class="n">gaussian_kde</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bw_method</span><span class="o">=</span><span class="s1">&#39;scott&#39;</span><span class="p">)</span>
+    <span class="n">x_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span>
+    <span class="n">y_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+    <span class="n">x_grid</span><span class="p">,</span> <span class="n">y_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="n">x_max</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span> <span class="n">y_max</span><span class="p">:</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">grid_points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">x_grid</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y_grid</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+    <span class="n">density_</span> <span class="o">=</span> <span class="n">kde</span><span class="p">(</span><span class="n">grid_points</span><span class="p">)</span>
+    <span class="n">density</span> <span class="o">=</span> <span class="n">density_</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">density_</span><span class="p">)</span>
+    <span class="n">density</span> <span class="o">=</span> <span class="n">density</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">density</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">heatmap</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="n">figindex</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">genename1</span><span class="p">,</span> <span class="n">genename2</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">900</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Joint Probability distrbution of data&#39;</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">genename1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">genename2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">verbose2</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">figflag</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">figindex</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.pdf&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+    <span class="k">return</span>
+
+<span class="k">def</span> <span class="nf">rescale_density</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="n">figindex</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">,</span> <span class="n">regulation_type</span><span class="p">,</span> <span class="n">genename1</span><span class="p">,</span> <span class="n">genename2</span><span class="p">):</span>
+    <span class="n">density_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">nn</span> <span class="o">=</span> <span class="n">density</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">density_max</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">nn</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span> <span class="n">density</span><span class="p">[:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">density</span><span class="p">[:,</span> <span class="n">index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span> <span class="n">density</span><span class="p">[:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">density</span><span class="p">[:,</span> <span class="n">index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">density</span><span class="p">[:,</span> <span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">density_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">nn</span> <span class="o">=</span> <span class="n">density</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>       
+    <span class="n">rescaled_density</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">density</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nn</span><span class="p">):</span>
+        <span class="n">rescaled_density</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">density</span><span class="p">[:,</span> <span class="n">col</span><span class="p">]</span> <span class="o">/</span> <span class="n">density_max</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>  
+    <span class="k">if</span> <span class="p">(</span><span class="n">verbose1</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">((</span><span class="n">verbose3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">verbose3</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">heatmap</span><span class="p">(</span><span class="n">rescaled_density</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="n">figindex</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">genename1</span><span class="p">,</span> <span class="n">genename2</span><span class="p">)</span>
+    <span class="c1"># Identification for regulation type</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">regulation_type</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="n">rescaled_density</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">rescaled_density</span><span class="p">[:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mf">0.5</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">indices</span><span class="p">))</span>
+            <span class="n">samples_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">values</span><span class="p">,</span> <span class="n">indices</span><span class="p">])</span>
+            <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">samples</span><span class="p">,</span> <span class="n">samples_</span><span class="p">])</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="n">samples</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">::]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">coef</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">spearmanr</span><span class="p">(</span><span class="n">samples</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">samples</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">info</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">p_value</span> <span class="o">&gt;=</span> <span class="mf">0.99</span><span class="p">):</span> <span class="n">sign_type</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span> <span class="n">sign_type</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">coef</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">coef</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">rescaled_density</span><span class="p">,</span> <span class="n">sign_type</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="p">(</span><span class="n">rescaled_density</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">rejected_samples</span><span class="p">(</span><span class="n">prob</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="n">sample</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">probabilities_</span> <span class="o">=</span> <span class="n">prob</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">probabilities_</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> 
+        <span class="n">probabilities</span> <span class="o">=</span> <span class="n">probabilities_</span><span class="p">[</span><span class="n">values</span><span class="p">]</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">num_samples</span><span class="p">:</span>
+            <span class="n">sample</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">probabilities</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">samples</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">resample</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="n">filter_eps</span><span class="p">):</span>
+    <span class="n">filtered_density</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">density</span> <span class="o">&gt;</span> <span class="n">filter_eps</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">filtered_density</span><span class="p">)</span>
+    <span class="n">num_samples</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">xx</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">yy</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">rejected_samples</span><span class="p">(</span><span class="n">filtered_density</span><span class="p">[:,</span> <span class="n">index</span><span class="p">],</span> <span class="n">num_samples</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="n">num_samples</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">num_samples</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="n">xx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">yy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">yy</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">re_samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">((</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">re_samples</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">density_counts</span><span class="p">(</span><span class="n">vals</span><span class="p">):</span>
+    <span class="n">xmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">ymax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">])</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">vals</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">xmax</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ymax</span><span class="p">):</span>
+            <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="ow">and</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="ow">and</span> <span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">cnt</span> <span class="o">=</span> <span class="n">cnt</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">count</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">cnt</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>       
+    <span class="n">pxy</span> <span class="o">=</span> <span class="n">count</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">count</span><span class="p">))</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">pxy</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">conditional_mutualinfo</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="n">figindex</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">):</span>
+    <span class="n">density</span> <span class="o">=</span> <span class="n">density_counts</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">px</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">py</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">density</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">py_givenx</span> <span class="o">=</span> <span class="n">density</span> <span class="o">/</span> <span class="n">px</span>
+    <span class="n">rescaled_prob</span> <span class="o">=</span> <span class="n">rescale_density</span><span class="p">(</span><span class="n">py_givenx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="n">figindex</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;X1&#39;</span><span class="p">,</span> <span class="s1">&#39;X2&#39;</span><span class="p">)</span>
+    <span class="c1"># Calculate CMI</span>
+    <span class="n">cmi_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">density</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">px</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">py</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">density</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">px</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">py</span><span class="p">[</span><span class="n">row</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="n">cmi_</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cmi_</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">density</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">/</span> <span class="n">px</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>  <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">density</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">px</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">py</span><span class="p">[</span><span class="n">row</span><span class="p">]))</span>
+    <span class="n">cmi</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cmi_</span><span class="p">))</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">cmi</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">Binary_PoBe_Interactions</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="n">genename1</span><span class="p">,</span> <span class="n">genename2</span><span class="p">,</span> <span class="n">verbose1</span><span class="p">,</span> <span class="n">verbose2</span><span class="p">,</span> <span class="n">verbose3</span><span class="p">):</span> 
+    <span class="n">alpha1</span><span class="p">,</span> <span class="n">alpha2</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">phi1</span><span class="p">,</span> <span class="n">phi2</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="mi">7</span><span class="p">]</span>
+    <span class="n">mu1</span> <span class="o">=</span> <span class="n">alpha1</span> <span class="o">/</span> <span class="p">(</span><span class="n">alpha1</span> <span class="o">+</span> <span class="n">beta1</span><span class="p">)</span>
+    <span class="n">mu2</span> <span class="o">=</span> <span class="n">alpha2</span> <span class="o">/</span> <span class="p">(</span><span class="n">alpha2</span> <span class="o">+</span> <span class="n">beta2</span><span class="p">)</span>
+    <span class="n">alpha1_</span> <span class="o">=</span> <span class="n">alpha1</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">alpha2_</span> <span class="o">=</span> <span class="n">alpha2</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">density</span> <span class="o">=</span> <span class="n">density_estimation</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">col</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">row</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">vals</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">prob1</span> <span class="o">=</span> <span class="n">uni_pobe</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">alpha1</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">phi1</span><span class="p">)</span>
+    <span class="n">prob2</span> <span class="o">=</span> <span class="n">uni_pobe</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">alpha2</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">phi2</span><span class="p">)</span>
+    <span class="n">prob1_</span> <span class="o">=</span> <span class="n">uni_pobe</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">alpha1_</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">phi1</span><span class="p">)</span>
+    <span class="n">prob2_</span> <span class="o">=</span> <span class="n">uni_pobe</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">alpha2_</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">phi2</span><span class="p">)</span>
+    <span class="n">pxy</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">py_givenx</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">px_giveny</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">pxy_</span> <span class="o">=</span> <span class="n">prob1</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">*</span> <span class="n">prob2</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span> <span class="o">*</span> <span class="n">mu1</span> <span class="o">*</span> <span class="n">mu2</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob1_</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="n">prob1</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob2_</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="n">prob2</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+        <span class="n">py_givenx_</span> <span class="o">=</span> <span class="n">prob2</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span> <span class="o">*</span> <span class="n">mu1</span> <span class="o">*</span> <span class="n">mu2</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob2_</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="n">prob2</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob1_</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">/</span> <span class="n">prob1</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">px_giveny_</span> <span class="o">=</span> <span class="n">prob1</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span> <span class="o">*</span> <span class="n">mu1</span> <span class="o">*</span> <span class="n">mu2</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob1_</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="n">prob1</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob2_</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">/</span> <span class="n">prob2</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">pxy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pxy_</span><span class="p">)</span>
+        <span class="n">px_giveny</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">px_giveny_</span><span class="p">)</span>
+        <span class="n">py_givenx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">py_givenx_</span><span class="p">)</span>
+    <span class="n">pxy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pxy</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">py_givenx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">py_givenx</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">px_giveny</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">px_giveny</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">])</span>
+    <span class="n">rescale_py_givenx</span> <span class="o">=</span> <span class="n">rescale_density</span><span class="p">(</span><span class="n">py_givenx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;genename1&#39;</span><span class="p">,</span> <span class="s1">&#39;genename2&#39;</span><span class="p">)</span>
+    <span class="n">rescale_px_giveny</span> <span class="o">=</span> <span class="n">rescale_density</span><span class="p">(</span><span class="n">px_giveny</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">figflag</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;genename2&#39;</span><span class="p">,</span> <span class="s1">&#39;genename1&#39;</span><span class="p">)</span>
+    <span class="n">px</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pxy</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">py</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pxy</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">verbose1</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">((</span><span class="n">verbose3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">verbose3</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">verbose2</span> <span class="o">==</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span> 
+            <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">density</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>   
+            <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Joint Probability distrbution&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">genename1</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">genename2</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">rescale_py_givenx</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>   
+            <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rescaled Conditional Probability Given $X_1$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">genename1</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">genename2</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">rescale_px_giveny</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Rescaled Conditional Probability Given $X_2$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">genename2</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">genename1</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fig1</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">900</span><span class="p">)</span>
+            <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Theory Inference Rescaled Conditional Probability Given $X_1$&#39;</span><span class="p">)</span>
+            <span class="n">im1</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">rescale_py_givenx</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+            <span class="n">fig1</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im1</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">genename1</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">genename2</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Rescaled conditional probability1.pdf&#39;</span><span class="p">)</span>  
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+            <span class="n">fig2</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">dpi</span><span class="o">=</span><span class="mi">900</span><span class="p">)</span>
+            <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Theory Inference Rescaled Conditional Probability Given $X_2$&#39;</span><span class="p">)</span>
+            <span class="n">im2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">pcolormesh</span><span class="p">(</span><span class="n">rescale_px_giveny</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">coolwarm</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+            <span class="n">fig2</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">genename2</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">genename1</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;Rescaled conditional probability2.pdf&#39;</span><span class="p">)</span>  
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span> 
+    <span class="k">return</span>
+    
+<span class="k">def</span> <span class="nf">distribution_fit</span><span class="p">(</span><span class="n">counts_data</span><span class="p">,</span> <span class="n">stat_params</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="mi">500</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">500</span> <span class="o">+</span> <span class="n">m</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">stat_data</span> <span class="o">=</span> <span class="n">_synthetic_data</span><span class="o">.</span><span class="n">gibbs_sample</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">stat_params</span><span class="p">),</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="c1">#  KW test</span>
+    <span class="n">data1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">counts_data</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">500</span><span class="p">:])</span>
+    <span class="n">data2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">stat_data</span><span class="p">)</span>
+    <span class="n">S</span><span class="p">,</span> <span class="n">KS_critical_val</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">ks_2samp</span><span class="p">(</span><span class="n">data1</span><span class="p">,</span> <span class="n">data2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">S</span><span class="p">,</span> <span class="n">H</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ks_2samp"><a class="viewcode-back" href="../../../api/burstlink.tools.ks_2samp.html#burstlink.tools.ks_2samp">[docs]</a><span class="k">def</span> <span class="nf">ks_2samp</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">asymptotic</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs a multivariate two-sample extension of the Kolmogorov-Smirnov test.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x_val</span>
+<span class="sd">        A numpy array of shape (num_samples_x, dim) representing the first sample.</span>
+<span class="sd">    y_val</span>
+<span class="sd">        A numpy array of shape (num_samples_y, dim) representing the second sample.</span>
+<span class="sd">    alpha</span>
+<span class="sd">        The significance level.</span>
+<span class="sd">    asymptotic</span>
+<span class="sd">        Whether to use the asymptotic approximation or not.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A boolean indicating whether the null hypothesis is rejected.</span>
+<span class="sd">    </span>
+<span class="sd">   &quot;&quot;&quot;</span>
+   
+    <span class="n">num_samples_x</span><span class="p">,</span> <span class="n">dim</span> <span class="o">=</span> <span class="n">x_val</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">num_samples_y</span><span class="p">,</span> <span class="n">num_feats_y</span> <span class="o">=</span> <span class="n">y_val</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="n">dim</span> <span class="o">!=</span> <span class="n">num_feats_y</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The two samples do not have the same number of features.&quot;</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_samples_x</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x_val</span><span class="p">[:,</span> <span class="n">h</span><span class="p">])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">ind</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">z</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples_x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="n">num_samples_x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">runmax</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="n">num_samples_x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">runmax</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">runmax</span><span class="p">,</span> <span class="n">temp</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
+                <span class="n">z</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">runmax</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">num_samples_x</span><span class="p">,</span> <span class="n">dim</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples_x</span><span class="p">):</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mecdf</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="n">h</span><span class="p">])</span> <span class="o">-</span> <span class="n">mecdf</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="n">h</span><span class="p">]))</span> <span class="o">*</span> <span class="p">(</span>
+                <span class="nb">round</span><span class="p">(</span><span class="n">num_samples_x</span> <span class="o">*</span> <span class="n">mecdf</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">z</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:,</span> <span class="n">h</span><span class="p">]))</span> <span class="o">==</span> <span class="n">num_samples_x</span> <span class="o">-</span> <span class="n">i</span>
+            <span class="p">)</span>
+            <span class="n">diff</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+            <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">diff</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span>
+                    <span class="n">diff</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">h</span><span class="p">],</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mecdf</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">x_val</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span> <span class="o">-</span> <span class="n">mecdf</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">x_val</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])),</span>
+                <span class="p">)</span>
+    <span class="n">KS</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">asymptotic</span><span class="p">:</span>
+        <span class="n">KS_critical_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">dim</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">num_samples_x</span><span class="p">))</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">dim</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">num_samples_y</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">KS_critical_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+            <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">num_samples_x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">dim</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">num_samples_x</span><span class="p">)</span>
+        <span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">num_samples_y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">dim</span><span class="p">))</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">num_samples_y</span><span class="p">))</span>
+        
+    <span class="k">if</span> <span class="p">(</span><span class="n">KS</span> <span class="o">&gt;</span> <span class="n">KS_critical_val</span><span class="p">):</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
+        <span class="n">p_value</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="s1">&#39;False&#39;</span>
+        <span class="n">phi</span> <span class="o">=</span> <span class="o">-</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">isf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="n">KS_critical_val</span> <span class="o">/</span> <span class="n">phi</span>
+        <span class="n">p_value</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="p">((</span><span class="n">KS</span><span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">KS_critical_val</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">),</span> <span class="n">loc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">KS</span><span class="p">,</span> <span class="n">KS_critical_val</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">p_value</span><span class="p">)</span></div>
+
+<span class="k">def</span> <span class="nf">mecdf</span><span class="p">(</span><span class="n">x_val</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the multivariate empirical cdf of x_val at t.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x_val</span>
+<span class="sd">        A numpy array of shape (num_samples_x, dim) representing the sample.</span>
+<span class="sd">    t</span>
+<span class="sd">        A numpy array of shape (num_samples_t, dim) representing the point at which to evaluate the cdf.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    The multivariate empirical cdf of x_val at t.  </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">lower</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_val</span> <span class="o">&lt;=</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.0</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">Binary_PoBe</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span> 
+    <span class="n">alpha1</span><span class="p">,</span> <span class="n">alpha2</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">phi1</span><span class="p">,</span> <span class="n">phi2</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span> <span class="mi">7</span><span class="p">]</span>
+    <span class="n">mu1</span> <span class="o">=</span> <span class="n">alpha1</span> <span class="o">/</span> <span class="p">(</span><span class="n">alpha1</span> <span class="o">+</span> <span class="n">beta1</span><span class="p">)</span>
+    <span class="n">mu2</span> <span class="o">=</span> <span class="n">alpha2</span> <span class="o">/</span> <span class="p">(</span><span class="n">alpha2</span> <span class="o">+</span> <span class="n">beta2</span><span class="p">)</span>
+    <span class="n">alpha1_</span> <span class="o">=</span> <span class="n">alpha1</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">alpha2_</span> <span class="o">=</span> <span class="n">alpha2</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">col</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">row</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">xx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">yy</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">vals</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">prob1</span> <span class="o">=</span> <span class="n">uni_pobe</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">alpha1</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">phi1</span><span class="p">)</span>
+    <span class="n">prob2</span> <span class="o">=</span> <span class="n">uni_pobe</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">alpha2</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">phi2</span><span class="p">)</span>
+    <span class="n">prob1_</span> <span class="o">=</span> <span class="n">uni_pobe</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">alpha1_</span><span class="p">,</span> <span class="n">beta1</span><span class="p">,</span> <span class="n">phi1</span><span class="p">)</span>
+    <span class="n">prob2_</span> <span class="o">=</span> <span class="n">uni_pobe</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">alpha2_</span><span class="p">,</span> <span class="n">beta2</span><span class="p">,</span> <span class="n">phi2</span><span class="p">)</span>
+    <span class="n">pxy</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">py_givenx</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">px_giveny</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">pxy_</span> <span class="o">=</span> <span class="n">prob1</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">*</span> <span class="n">prob2</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span> <span class="o">*</span> <span class="n">mu1</span> <span class="o">*</span> <span class="n">mu2</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob1_</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="n">prob1</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob2_</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="n">prob2</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+        <span class="n">py_givenx_</span> <span class="o">=</span> <span class="n">prob2</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span> <span class="o">*</span> <span class="n">mu1</span> <span class="o">*</span> <span class="n">mu2</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob2_</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="n">prob2</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob1_</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">/</span> <span class="n">prob1</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">px_giveny_</span> <span class="o">=</span> <span class="n">prob1</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+</span> <span class="n">w</span> <span class="o">*</span> <span class="n">mu1</span> <span class="o">*</span> <span class="n">mu2</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob1_</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="n">prob1</span><span class="p">[</span><span class="n">index</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="n">prob2_</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">/</span> <span class="n">prob2</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">pxy</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pxy_</span><span class="p">)</span>
+        <span class="n">px_giveny</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">px_giveny_</span><span class="p">)</span>
+        <span class="n">py_givenx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">py_givenx_</span><span class="p">)</span>
+    <span class="n">pxy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pxy</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">py_givenx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">py_givenx</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">px_giveny</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">px_giveny</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">])</span>
+    <span class="n">px</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pxy</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">py</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pxy</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">pxy</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">py</span><span class="p">)</span>
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, LiyingZhou
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=4e78f113"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/scripts/furo.js?v=5fa4622c"></script>
+    </body>
+</html>
