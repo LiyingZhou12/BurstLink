@@ -6,9 +6,6 @@
 import os
 import sys
 from pathlib import Path
-current_dir = Path(__file__).resolve().parent
-project_root = current_dir.parents[2] / "BurstLink-main"
-sys.path.insert(0, str(project_root))
 
 HERE = Path(__file__).parent
 sys.path[:0] = [str(HERE.parent)]
