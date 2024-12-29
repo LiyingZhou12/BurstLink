@@ -8,7 +8,12 @@ setup(
     version="0.0.2",   
     description="A user-friendly package for analyzing gene interactions and transcriptional bursting.",                
     packages=find_packages(),            
-    python_requires=">=3.8",            
+    python_requires=">=3.8",   
+    install_requires=[
+        "statsmodels>=0.12.0",
+        "numpy>=1.21.0",
+        "pandas>=1.3.0",
+    ],
     long_description=long_description,
     long_description_content_type="text/markdown",  
 )
