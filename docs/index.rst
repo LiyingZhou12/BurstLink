@@ -11,7 +11,7 @@ Welcome to BurstLink's documentation!
    :alt: PyPI
 
 .. image:: https://img.shields.io/pypi/pyversions/burstlink
-   :target: https://pypi.org/project/burstlink/0.4.0/
+   :target: https://pypi.org/project/burstlink/0.0.2/
    :alt: PyPI - Python Version
 
 .. image:: https://img.shields.io/pypi/wheel/burstlink
