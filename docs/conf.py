@@ -28,7 +28,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'myst_nb',  
 ]
-autosummary_generate = False
+autosummary_generate = True
 nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
