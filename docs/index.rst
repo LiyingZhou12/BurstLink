@@ -12,7 +12,7 @@ Welcome to BurstLink's documentation!
 
 .. image:: https://img.shields.io/pypi/pyversions/burstlink
    :target: https://pypi.org/project/burstlink/0.0.2/
-   :alt: PyPI - 3.8
+   :alt: PyPI - Python Version
 
 .. image:: https://img.shields.io/pypi/wheel/burstlink
    :target: https://pypi.org/project/burstlink/
