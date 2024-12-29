@@ -9,6 +9,7 @@ from pathlib import Path
 
 HERE = Path(__file__).parent
 sys.path[:0] = [str(HERE.parent)]
+print("SYS.PATH:", sys.path)
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -16,7 +17,7 @@ sys.path[:0] = [str(HERE.parent)]
 project = 'BurstLink'
 copyright = '2024, LiyingZhou'
 author = 'LiyingZhou'
-release = '0.4.0'
+release = '0.0.2'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
