@@ -8,14 +8,13 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).parent
-PROJECT_ROOT = HERE.parent
-sys.path.insert(0, str(PROJECT_ROOT))
+sys.path[:0] = [str(HERE.parent)]
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'BurstLink'
-copyright = '2024, LiyingZhou'
+copyright = '2025, LiyingZhou'
 author = 'LiyingZhou'
 release = '1.0.0'
 
@@ -23,78 +22,67 @@ release = '1.0.0'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
+    'sphinx_mdinclude',
+    'sphinx_rtd_theme',
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
+    'sphinx.ext.napoleon',
     'sphinx.ext.autosummary',
     'sphinx.ext.mathjax',
-    'myst_nb',  
-    'sphinx.ext.napoleon', 
+    'sphinx_autodoc_typehints',
+    'sphinx_rtd_size',
+    'nbsphinx',
+    'sphinx_gallery.load_style',
+    'myst_nb'
 ]
-autosummary_generate = True
-autodoc_default_options = {
-    'members': True,  
-    'undoc-members': True,  
-    'private-members': False,  
-    'special-members': '__init__', 
-    'show-inheritance': True,  
-}
-
-autodoc_mock_imports = [
-    "sphinx",
-    "sphinx_rtd_theme",
-    "sphinx_mdinclude",
-    "sphinx_autodoc_typehints",
-    "sphinx_rtd_size",
-    "nbsphinx",
-    "sphinx_gallery",
-    "furo",
-    "myst_nb",
-    "leidenalg",
-    "matplotlib",
-    "networkx",
-    "numpy",
-    "pandas",
-    "gseapy",
-    "plotly",
-    "POT",
-    "pycirclize",
-    "pydpc",
-    "python_igraph",
-    "scikit_learn",
-    "scipy",
-    "seaborn",
-    "tqdm",
+myst_enable_extensions = [
+    'html_admonition',
+    'colon_fence',
+    
 ]
+nbsphinx_allow_errors = True
+nbsphinx_execute = 'auto'
+nb_execution_mode = "off"
+sphinx_rtd_size_width = "75%"
 
-nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
     '.ipynb': 'myst-nb',
+    '.myst': 'myst-nb',
+    '.md': 'markdown',
 }
+
 templates_path = ['_templates']
-exclude_patterns = [
-    'build',
-    '_build',
-    '_build/jupyter_execute/**',
-    'Thumbs.db',
-    '.DS_Store',
-    'api/burstlink.rst', 
-]
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # -- Options for HTML output -------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
-html_theme = "furo"  
+
+# The theme to use for HTML and HTML Help pages.  See the documentation for
+# a list of builtin themes.
+html_theme = "furo"
 html_static_path = ["_static"]
 html_css_files = [
-    "css/override.css", 
+    "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css",
+    "css/override.css",
 ]
 
-html_logo = "_static/image/logo.png"
-
+html_show_sphinx = False
+html_show_sourcelink = False
 html_theme_options = {
     "sidebar_hide_name": True,
     "light_css_variables": {
         "color-brand-primary": "#357473",
         "color-brand-content": "#357473",
+        "admonition-font-size": "var(--font-size-normal)",
+        "admonition-title-font-size": "var(--font-size-normal)",
     },
+    "footer_icons": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/LiyingZhou12/BurstLink",
+            "html": "",
+            "class": "fab fa-github",
+        },
+    ],
 }
+html_logo = "_static/image/logo.png"
