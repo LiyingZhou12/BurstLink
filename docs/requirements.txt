@@ -6,7 +6,7 @@ sphinx_rtd_size
 nbsphinx>=0.9.5
 sphinx_gallery>=0.17.0
 furo
-myst_nb<0.18,>=0.17
+myst_nb
 leidenalg==0.10.2
 matplotlib<3.8.0,>=3.7.0
 networkx>=3.0
