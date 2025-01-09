@@ -41,9 +41,12 @@ autodoc_mock_imports = [
 ]
 
 autodoc_default_options = {
-    "members": True,
-    "undoc-members": True,
-    "show-inheritance": True,
+    "members": True,               
+    "undoc-members": True,        
+    "show-inheritance": True,      
+    "inherited-members": True,   
+    "special-members": "__init__", 
+    "private-members": True,      
 }
 
 nb_execution_mode = "off"  
