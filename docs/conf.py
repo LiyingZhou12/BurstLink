@@ -28,7 +28,7 @@ extensions = [
     'myst_nb',  
 ]
 
-autosummary_generate = True
+autosummary_generate = False
 autodoc_mock_imports =  ["rpy2", "numpy", "pandas", "matplotlib", "statsmodels",]
 nb_execution_mode = "off"  
 source_suffix = {
