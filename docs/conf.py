@@ -7,8 +7,7 @@ import os
 import sys
 from pathlib import Path
 
-HERE = Path(__file__).parent
-sys.path[:0] = [str(HERE.parent)]
+sys.path.insert(0, os.path.abspath('../burstlink'))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -30,7 +29,7 @@ extensions = [
 ]
 
 autosummary_generate = True
-autodoc_mock_imports =  ["rpy2", "numpy", "pandas", "matplotlib",]
+autodoc_mock_imports =  ["rpy2", "numpy", "pandas", "matplotlib", "statsmodels",]
 nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
