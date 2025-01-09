@@ -13,3 +13,6 @@ python:
 
 sphinx:
   configuration: docs/conf.py  
+
+environment:
+  RPY2_CFFI_MODE: ABI
