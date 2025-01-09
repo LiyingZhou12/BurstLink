@@ -13,7 +13,7 @@ Preprocessing
 .. currentmodule:: burstlink.preprocessing
 
 .. autosummary::
-   :toctree: .
+   :toctree: preprocessing/
 
    select_genepair_grn
    integration_grn
@@ -28,7 +28,7 @@ Tools
 .. currentmodule:: burstlink.tools
 
 .. autosummary::
-   :toctree: .
+   :toctree: tools/
 
    global_burst_link
    global_uni_burst_link
@@ -50,19 +50,8 @@ Plotting
 .. currentmodule:: burstlink.plotting
 
 .. autosummary::
-   :toctree: .
+   :toctree: plotting/
 
    network_visualization
    TFs_interactiontype_network
    scatterplot_burst
-
-
-Additional Resources
---------------------
-
-.. toctree::
-   :maxdepth: 2
-
-   burstlink.preprocessing
-   burstlink.tools
-   burstlink.plotting
