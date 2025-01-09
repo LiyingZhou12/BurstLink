@@ -14,8 +14,8 @@ from matplotlib.lines import Line2D
 from matplotlib.colors import TwoSlopeNorm
 import seaborn as sns
 
-from _utils import _synthetic_data
-from tools import _burst_interactions as bi
+from .._utils import _synthetic_data
+from ..tools import _burst_interactions as bi
 
 
 def landscape(params, fig_index):
