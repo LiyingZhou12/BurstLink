@@ -56,7 +56,7 @@ whole-genome inference and a series of downstream analyses.
 New
 ===
 
-- Jan 09, 2025: We released BurstLink version 1.0.0. This version standardizes function names and fixes some bugs.
+- Jan 09, 2025: We released BurstLink version 1.0.3. This version standardizes function names and fixes some bugs.
 
 BurstLink's features
 ====================
