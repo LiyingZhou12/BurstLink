@@ -28,7 +28,7 @@ extensions = [
     'myst_nb',  
 ]
 
-autodoc_mock_imports =  ["rpy2", "numpy", "pandas", "matplotlib"]
+autodoc_mock_imports =  ["rpy2", "numpy", "pandas", "matplotlib",]
 nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
