@@ -8,7 +8,8 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).parent
-sys.path[:0] = [str(HERE.parent)]
+PROJECT_ROOT = HERE.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -27,6 +28,31 @@ extensions = [
     'sphinx.ext.autosummary',
     'sphinx.ext.mathjax',
     'myst_nb',  
+]
+autodoc_mock_imports = [
+    "sphinx",
+    "sphinx_rtd_theme",
+    "sphinx_mdinclude",
+    "sphinx_autodoc_typehints",
+    "sphinx_rtd_size",
+    "nbsphinx",
+    "sphinx_gallery",
+    "furo",
+    "myst_nb",
+    "leidenalg",
+    "matplotlib",
+    "numpy",
+    "pandas",
+    "plotly",
+    "POT",
+    "pycirclize",
+    "pydpc",
+    "python_igraph",
+    "scikit_learn",
+    "scipy",
+    "seaborn",
+    "tqdm",
+    "gseapy",
 ]
 nb_execution_mode = "off"  
 source_suffix = {
