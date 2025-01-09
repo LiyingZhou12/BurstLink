@@ -7,7 +7,7 @@ import os
 import sys
 from pathlib import Path
 
-sys.path.insert(0, os.path.abspath('../burstlink'))
+sys.path.insert(0, os.path.abspath('../'))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -28,7 +28,7 @@ extensions = [
     'myst_nb',  
 ]
 
-autosummary_generate = False
+autosummary_generate = True
 autodoc_mock_imports =  ["rpy2", "numpy", "pandas", "matplotlib", "statsmodels",]
 nb_execution_mode = "off"  
 source_suffix = {
