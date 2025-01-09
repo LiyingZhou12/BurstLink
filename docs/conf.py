@@ -43,7 +43,6 @@ exclude_patterns = [
     '_build/jupyter_execute/**',
     'Thumbs.db',
     '.DS_Store', 
-    'api/index.rst',
 ]
 
 # -- Options for HTML output -------------------------------------------------
