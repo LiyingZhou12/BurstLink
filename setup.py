@@ -10,9 +10,8 @@ def parse_requirements(filename):
         return [line.strip() for line in file if line and not line.startswith("#")]
 
 install_requires = parse_requirements("requirements.txt")
-
 if not on_rtd:
-    install_requires.append("rpy2==3.5.16")
+    install_requires.append("rpy2==3.5.16") 
 
 setup(
     name="burstlink",                  
@@ -20,7 +19,7 @@ setup(
     description="A user-friendly package for analyzing gene interactions and transcriptional bursting.",                
     packages=find_packages(),            
     python_requires=">=3.8",   
-    install_requires=install_requires,
+    install_requires=install_requires, 
     long_description=long_description,
     long_description_content_type="text/markdown",  
 )
