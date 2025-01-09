@@ -10,7 +10,8 @@ API Documentation
 Preprocessing
 -------------
 
-.. currentmodule:: burstlink.preprocessing
+.. module:: burstlink.preprocessing
+.. currentmodule:: burstlink
 
 .. autosummary::
    :toctree: .
@@ -25,7 +26,8 @@ Preprocessing
 Tools
 -----
 
-.. currentmodule:: burstlink.tools
+.. module:: burstlink.tools
+.. currentmodule:: burstlink
 
 .. autosummary::
    :toctree: .
@@ -47,7 +49,8 @@ Tools
 Plotting
 --------
 
-.. currentmodule:: burstlink.plotting
+.. module:: burstlink.plotting
+.. currentmodule:: burstlink
 
 .. autosummary::
    :toctree: .
