@@ -240,7 +240,7 @@
     "burst_info_file = os.path.abspath(\"primary_mouse_data/inference_results/burst_info.csv\")\n",
     "degree_data_file = os.path.abspath(\"primary_mouse_data/inference_results/degree_data.csv\")\n",
     "network_figure = os.path.abspath(\"primary_mouse_data/inference_results/network_plot.png\") \n",
-    "bl.plotting._plotting.network_visualization(counts_file, gene_interactions_file, burst_info_file, degree_data_file, network_figure)"
+    "bl.plotting._plotting.network_visualization(counts_file, gene_interactions_file, burst_info_file, degree_data_file, network_figure, 2, 0.5)"
    ]
   },
   {
