@@ -11,7 +11,7 @@ Welcome to BurstLink's documentation!
    :alt: PyPI
 
 .. image:: https://img.shields.io/pypi/pyversions/burstlink
-   :target: https://pypi.org/project/burstlink/0.0.2/
+   :target: https://pypi.org/project/burstlink/
    :alt: PyPI - Python Version
 
 .. image:: https://img.shields.io/pypi/wheel/burstlink
@@ -19,7 +19,7 @@ Welcome to BurstLink's documentation!
    :alt: PyPI - Wheel
 
 .. image:: https://img.shields.io/github/downloads/LiyingZhou12/BurstLink/total
-   :target: https://github.com/LiyingZhou12/BurstLink/releases
+   :target: https://github.com/LiyingZhou12/BurstLink/
    :alt: Downloads
 
 **BurstLink** is a Python package to infer the coupled dynamics of gene regulatory interactions 
@@ -56,7 +56,7 @@ whole-genome inference and a series of downstream analyses.
 New
 ===
 
-- Dec 12, 2024: We released BurstLink version 0.0.2. This version standardizes function names and fixes some bugs.
+- Jan 09, 2025: We released BurstLink version 1.0.0. This version standardizes function names and fixes some bugs.
 
 BurstLink's features
 ====================

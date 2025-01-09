@@ -13,7 +13,7 @@ operating systems. Linux and macOS is recommended.
 Python requirements
 ~~~~~~~~~~~~~~~~~~~
 
-BurstLink was developed and tested using python 3.8. We recommend using
+BurstLink was developed and tested using python 3.9. We recommend using
 mamba or conda to manage Python environments.
 
 Installation using ``pip``
@@ -26,7 +26,7 @@ the required libraries within it.
 
 .. code:: bash
 
-   mamba create -n burstlink_env python=3.8 r-base=4.3.2
+   mamba create -n burstlink_env python=3.9 r-base=4.3.2
    mamba activate burstlink_env
    pip install burstlink
 
