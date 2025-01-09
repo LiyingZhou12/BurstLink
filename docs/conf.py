@@ -29,7 +29,7 @@ extensions = [
 ]
 
 autosummary_generate = True
-autodoc_mock_imports =  ["rpy2", "numpy", "pandas", "matplotlib", "statsmodels",]
+autodoc_mock_imports =  ["rpy2", "numpy", "pandas", "matplotlib", "statsmodels", "burstlink.plotting", "burstlink.preprocessing", "burstlink.tools",]
 nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
