@@ -12,7 +12,7 @@ from sklearn.metrics.cluster import normalized_mutual_info_score
 import matplotlib.pyplot as plt
 from matplotlib.transforms import Affine2D
 
-from _utils import _synthetic_data
+from .._utils import _synthetic_data
 
 
 def global_burst_link(grn_filename, counts_filename, save_filename, verbose1, verbose2, verbose3, test, verbose4):
