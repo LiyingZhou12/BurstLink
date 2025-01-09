@@ -8,8 +8,10 @@ from scipy.ndimage import gaussian_filter1d, gaussian_filter
 import statsmodels.api as sm
 from sklearn.metrics import roc_curve, roc_auc_score
 from sklearn.preprocessing import MinMaxScaler
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+from matplotlib.colors import TwoSlopeNorm
 import seaborn as sns
 
 from _utils import _synthetic_data
@@ -385,3 +387,69 @@ def scatter_interval(data):
     plt.tight_layout()   
     plt.show()
     return(p_value1, p_value2)
+
+def box_plot4_2(bf, bs, cv2, mean):
+    fig, ax = plt.subplots(1, 1, figsize=(3, 1), dpi=300)
+    positions = [[1, 2], [4, 5], [7, 8], [10, 11]]  
+    colors = ['#90EE90', '#FFDAB9']
+    for i, group_data in enumerate([bf, bs, cv2, mean]): 
+        for j, subgroup in enumerate(group_data): 
+            ax.boxplot(subgroup, positions=[positions[i][j]], patch_artist=True, widths=0.6, boxprops=dict(facecolor=colors[j], linewidth=0.5),
+                     capprops=dict(linewidth=0.5), whiskerprops=dict(linewidth=0.3), medianprops=dict(linewidth=0.5, color='red'), showfliers=False)
+    ax.set_xticks([1.5, 4.5, 7.5, 10.5])
+    ax.set_xticklabels(['BF', 'BS', 'CV2', 'Mean'], fontsize=4.5)
+    ax.set_ylim([-1.4, 2.8])
+    ax.set_ylabel('log10(Value)', fontsize=4)
+    ax.tick_params(axis='y', labelsize=4)
+    for spine in ax.spines.values():
+        spine.set_linewidth(0.5)
+    ax.tick_params(axis='both', width=0.5)
+    plt.show()
+    return
+
+def heatmap_regulation(data):
+    plt.figure(figsize=(5, 0.9), dpi=300) 
+    vmin = np.min(data)
+    vmax = np.max(data)
+    vcenter = 0
+    if vmin >= vcenter: vmin = vcenter - 0.1  
+    if vmax <= vcenter: vmax = vcenter + 0.1  
+    sns.heatmap(data, cmap=plt.cm.coolwarm , norm=TwoSlopeNorm(vmin=vmin, vcenter=vcenter, vmax=vmax), xticklabels=False, yticklabels=False, linewidths=0.001, linecolor='white', cbar=False)  
+    plt.title('Comparison of the overall regulatory interaction levles between two groups', fontsize=6)
+    plt.tight_layout()
+    plt.show()
+    return
+
+def barplot_regulation(data):
+    plt.figure(dpi=900, figsize=(4, 0.95))
+    colors = ['#FF7F7F' if i < 16 else 'skyblue' if i >= 88 else 'gray' for i in range(144)]
+    plt.bar(np.arange(1, data.shape[0]+1), data, width=0.9, color=colors, alpha=0.8)
+    plt.title('Difference values of the overall regulatory interaction levles between two groups', fontsize=5)
+    plt.xlabel('Genename', fontsize=5)
+    plt.ylabel('Values', fontsize=5)
+    plt.grid(axis='y', alpha=0.4)
+    plt.xticks([])
+    plt.yticks([])
+    ax = plt.gca()
+    for spine in ax.spines.values(): spine.set_linewidth(0.35) 
+    plt.show()
+    return
+
+def visualize_go_bar(go_results, title, color_):
+    go_results = go_results.sort_values("Adjusted P-value").head(10)
+    palette = sns.color_palette(color_, n_colors=10)
+    fig, ax = plt.subplots(figsize=(4.5, 3.5), dpi=300)
+    barplot = sns.barplot(
+        x=go_results["Overlap"].apply(lambda x: int(x.split('/')[0])),  
+        y=go_results["Term"], palette=palette, hue=None, ax=ax, legend=False)
+    norm = mpl.colors.Normalize(vmin=go_results["Adjusted P-value"].min(), vmax=go_results["Adjusted P-value"].max())
+    sm = plt.cm.ScalarMappable(cmap=color_, norm=norm) 
+    sm.set_array([])
+    cbar = fig.colorbar(sm, ax=ax, orientation="vertical", pad=0.02)
+    cbar.set_label("p-value", fontsize=4)
+    ax.set_title(title, fontsize=10, weight='bold', pad=15)
+    ax.set_xlabel("Gene number", fontsize=8)
+    ax.set_ylabel("GO terms", fontsize=8)
+    plt.tight_layout()
+    plt.show()
+    return
