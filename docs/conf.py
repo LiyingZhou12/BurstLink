@@ -31,7 +31,7 @@ extensions = [
     'sphinx.ext.napoleon', 
 ]
 autosummary_generate = True
-autodoc_mock_imports = ["numpy", "pandas", "rpy2", "pyarrow"]
+autodoc_mock_imports = ["BurstLink"]
 autodoc_default_options = {
     'members': True,
     'undoc-members': True,
