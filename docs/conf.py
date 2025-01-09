@@ -30,6 +30,10 @@ extensions = [
     'myst_nb',  
 ]
 
+autodoc_mock_imports = [
+    "rpy2",
+]
+
 nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
