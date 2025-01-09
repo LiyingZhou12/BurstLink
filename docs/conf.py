@@ -7,9 +7,7 @@ import os
 import sys
 from pathlib import Path
 
-HERE = Path(__file__).parent
-PROJECT_ROOT = HERE.parent
-sys.path.insert(0, str(PROJECT_ROOT))
+sys.path.insert(0, os.path.abspath('../burstlink'))
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -30,7 +28,7 @@ extensions = [
     'myst_nb',  
 ]
 
-autodoc_mock_imports = ["rpy2",]
+autodoc_mock_imports =  ["rpy2", "numpy", "pandas", "matplotlib"]
 nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
