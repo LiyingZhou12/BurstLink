@@ -31,7 +31,31 @@ extensions = [
     'sphinx.ext.napoleon', 
 ]
 autosummary_generate = True
-autodoc_mock_imports = ["burstlink"]
+autodoc_mock_imports = [
+    "leidenalg",
+    "matplotlib",
+    "networkx",
+    "numpy",
+    "pandas",
+    "plotly",
+    "POT",
+    "pycirclize",
+    "pydpc",
+    "python_igraph",
+    "scikit_learn",
+    "scipy",
+    "seaborn",
+    "tqdm",
+    "sphinx",
+    "sphinx_rtd_theme",
+    "sphinx_mdinclude",
+    "sphinx_autodoc_typehints",
+    "sphinx_rtd_size",
+    "nbsphinx",
+    "sphinx_gallery",
+    "furo",
+    "myst_nb",
+]
 autodoc_default_options = {
     'members': True,
     'undoc-members': True,
