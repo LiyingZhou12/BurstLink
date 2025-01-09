@@ -6,3 +6,4 @@ Realistic Data
 
    multi-omics_data.ipynb
    multi-omics_data_validation.ipynb
+   DMSO_IdU_data.ipynb
