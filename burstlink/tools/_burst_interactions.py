@@ -516,7 +516,7 @@ def distribution_fit(counts_data, stat_params):
 
 def ks_2samp(x_val, y_val, alpha, asymptotic = False):
     """
-    Performs a multivariate two-sample extension of the Kolmogorov-Smirnov test.
+    Perform a multivariate two-sample extension of the Kolmogorov-Smirnov test.
 
     Parameters
     ----------
@@ -585,7 +585,7 @@ def ks_2samp(x_val, y_val, alpha, asymptotic = False):
 
 def mecdf(x_val, t):
     """
-    Computes the multivariate empirical cdf of x_val at t.
+    Compute the multivariate empirical cdf of x_val at t.
 
     Parameters
     ----------
