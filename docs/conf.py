@@ -7,7 +7,8 @@ import os
 import sys
 from pathlib import Path
 
-sys.path.insert(0, os.path.abspath('../burstlink'))
+HERE = Path(__file__).parent
+sys.path[:0] = [str(HERE.parent)]
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
