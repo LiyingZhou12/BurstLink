@@ -15,7 +15,7 @@ if not on_rtd:
 
 setup(
     name="burstlink",                  
-    version="1.0.0",   
+    version="1.0.3",   
     description="A user-friendly package for analyzing gene interactions and transcriptional bursting.",                
     packages=find_packages(),            
     python_requires=">=3.8",   
