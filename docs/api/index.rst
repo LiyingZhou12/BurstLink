@@ -64,5 +64,5 @@ Additional Resources
    :maxdepth: 2
 
    burstlink.preprocessing
-   burstlink.plotting
    burstlink.tools
+   burstlink.plotting
