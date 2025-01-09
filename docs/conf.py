@@ -39,6 +39,33 @@ autodoc_default_options = {
     'show-inheritance': True,  
 }
 
+autodoc_mock_imports = [
+    "sphinx",
+    "sphinx_rtd_theme",
+    "sphinx_mdinclude",
+    "sphinx_autodoc_typehints",
+    "sphinx_rtd_size",
+    "nbsphinx",
+    "sphinx_gallery",
+    "furo",
+    "myst_nb",
+    "leidenalg",
+    "matplotlib",
+    "networkx",
+    "numpy",
+    "pandas",
+    "gseapy",
+    "plotly",
+    "POT",
+    "pycirclize",
+    "pydpc",
+    "python_igraph",
+    "scikit_learn",
+    "scipy",
+    "seaborn",
+    "tqdm",
+]
+
 nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
