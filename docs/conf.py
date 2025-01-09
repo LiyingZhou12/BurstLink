@@ -1,4 +1,5 @@
 # Configuration file for the Sphinx documentation builder.
+#
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
@@ -6,22 +7,8 @@ import os
 import sys
 from pathlib import Path
 
-# 设置模块路径
 HERE = Path(__file__).parent
-PROJECT_ROOT = HERE.parent
-MODULE_PATH = PROJECT_ROOT / "burstlink"  # 假设模块在项目根目录的 burstlink 文件夹中
-if MODULE_PATH.exists():
-    sys.path.insert(0, str(MODULE_PATH.parent))  # 将模块的父目录添加到 sys.path
-
-# 验证模块是否能正确导入
-try:
-    import burstlink
-    import burstlink.plotting
-    import burstlink.preprocessing
-    import burstlink.tools
-    print("Modules imported successfully!")
-except ImportError as e:
-    print(f"Error importing module: {e}")
+sys.path[:0] = [str(HERE.parent)]
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -29,7 +16,7 @@ except ImportError as e:
 project = 'BurstLink'
 copyright = '2024, LiyingZhou'
 author = 'LiyingZhou'
-release = '1.0.0'
+release = '0.0.2'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -39,9 +26,9 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.autosummary',
     'sphinx.ext.mathjax',
-    'myst_nb',  # 支持 Jupyter Notebook 文件
+    'myst_nb',  
 ]
-nb_execution_mode = "off"  # 禁用 Notebook 执行
+nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
     '.ipynb': 'myst-nb',
@@ -73,15 +60,3 @@ html_theme_options = {
         "color-brand-content": "#357473",
     },
 }
-
-# -- Autosummary configuration -----------------------------------------------
-autosummary_generate = True  # 自动生成 .rst 文件
-autodoc_default_options = {
-    'members': True,
-    'undoc-members': True,
-    'private-members': False,
-    'show-inheritance': True,
-}
-
-# 添加的路径配置
-sys.path.append(str(PROJECT_ROOT))
