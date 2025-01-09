@@ -37,7 +37,6 @@ autodoc_mock_imports = [
     "pandas",
     "matplotlib",
     "statsmodels",
-    "burstlink",
 ]
 
 autodoc_default_options = {
