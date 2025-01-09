@@ -30,17 +30,6 @@ extensions = [
     'myst_nb',  
 ]
 
-autodoc_mock_imports = [
-    "numpy",
-    "pandas",
-    "matplotlib",
-    "scipy",
-    "seaborn",
-    "leidenalg",
-    "python_igraph",
-    "pycirclize",
-]
-
 nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
