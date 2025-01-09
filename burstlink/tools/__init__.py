@@ -10,4 +10,8 @@ from ._downstream_analysis import burst_interaction_overall
 from ._downstream_analysis import burst_info_summarize
 from ._downstream_analysis import affinity_burst
 from ._downstream_analysis import burst_interactionlevel_positive
-from ._downstream_analysis import dge_analysis
+from ._downstream_analysis import comparison_burst_analysis
+from ._downstream_analysis import comparison_regulation_analysis
+from ._downstream_analysis import comparison_regulation_difference_analysis
+from ._downstream_analysis import go_enrichment_analysis
+from ._downstream_analysis import differential_tg_GO
