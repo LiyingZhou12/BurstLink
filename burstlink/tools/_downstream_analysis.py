@@ -11,8 +11,8 @@ import gseapy as gp
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from _utils import _plotting as _plotting
-from  plotting import _plotting as _Plotting
+from .._utils import _plotting as _plotting
+from ..plotting import _plotting as _Plotting
 
 
 def tf_tg_analysis(burst_info_file, degree_file):
