@@ -168,7 +168,37 @@ def RNAseq_analysis(read_filename1, read_filename2, save_filename1, save_filenam
         df2.to_csv(save_filename2) 
         return(counts_matrix, stat_matrix)
     else: return(counts_matrix, stat_matrix)
+
+def RNAseq_analysis_uni(read_filename, save_filename, verbose):
+    genename = np.matrix(pd.read_csv(read_filename))[:, 1]
+    counts = np.matrix(pd.read_csv(read_filename))[:, 2::].astype(float)
+    stat = np.array(['mean', 'var', 'cv2']).reshape([1, 3])
+    for index in np.arange(counts.shape[0]):
+        countdata = counts[index, :]
+        mean_ = np.mean(countdata)
+        if (mean_ == 0): mean_ = 1e-6
+        var_ = np.var(countdata)
+        cv2_ = var_ / (mean_**2)
+        stat = np.vstack([stat, np.array([mean_, var_, cv2_]).reshape([1, 3])])
+    mean = stat[1::, 0].astype(float)
+    filtered_mean = np.delete(mean, np.where(mean == 1e-6)[0])
+
+    fig1, ax1 = plt.subplots(dpi=900)
+    plt.hist(np.log(filtered_mean), bins=35, density=True) 
+    plt.show()
+    fig2, ax2 = plt.subplots(dpi=900)
+    df_mean = pd.DataFrame(np.log(filtered_mean))
+    plt.boxplot(df_mean[0]) 
+    plt.show()
     
+    stat_matrix = np.hstack([np.matrix(genename).reshape([counts.shape[0], 1]), np.matrix(stat[1::, :]).astype(float)])
+    if (verbose == True):
+        df = pd.DataFrame(stat_matrix)
+        df.to_csv(save_filename) 
+        return(stat_matrix)
+    else: return(stat_matrix)
+
+   
 def selection_GRNandRNAseq(grn_filename, rnaseq_filename, counts_filename, threshold_value, verbose):
     """ Integration with scRNA-seq data and scATAC-seq data. """
     grn = pd.read_csv(grn_filename)
