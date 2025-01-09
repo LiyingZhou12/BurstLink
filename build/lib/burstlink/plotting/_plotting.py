@@ -7,7 +7,7 @@ import seaborn as sns
 import rpy2.robjects as ro
 
 
-def network_visualization(counts_file, gene_interactions_file, burst_info_file, degree_data_file, network_figure):
+def network_visualization(counts_file, gene_interactions_file, burst_info_file, degree_data_file, network_figure, neighbors, min_dist):
     """
     Visualization for gene regulatory interactions network embedded with bursting.
     """
@@ -16,6 +16,8 @@ def network_visualization(counts_file, gene_interactions_file, burst_info_file, 
     ro.globalenv['burst_info_file'] = burst_info_file
     ro.globalenv['degree_data_file'] = degree_data_file
     ro.globalenv['network_figure'] = network_figure
+    ro.globalenv['neighbors'] = neighbors
+    ro.globalenv['min_dist'] = min_dist
     network_visualization_R = """
     library(umap)
     library(ggplot2)
@@ -32,8 +34,8 @@ def network_visualization(counts_file, gene_interactions_file, burst_info_file, 
     expression_counts_matrix <- expression_counts_matrix_[ ,3:ncol(expression_counts_matrix_)]
     expression_counts_matrix <- as.data.frame(lapply(expression_counts_matrix, function(x) as.numeric(as.character(x))))
     umap_config <- umap.defaults
-    umap_config$n_neighbors <- 2
-    umap_config$min_dist <- 0.5
+    umap_config$n_neighbors <- neighbors
+    umap_config$min_dist <- min_dist
     umap_result <- umap(expression_counts_matrix, config = umap_config)
     umap_df <- as.data.frame(umap_result$layout)
     colnames(umap_df) <- c("UMAP1", "UMAP2")
