@@ -8,8 +8,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).parent
-# sys.path[:0] = [str(HERE.parent)]
-sys.path.insert(0, os.path.abspath('../'))
+sys.path[:0] = [str(HERE.parent)]
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -29,6 +28,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'myst_nb',  
 ]
+autosummary_generate = False
 nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
