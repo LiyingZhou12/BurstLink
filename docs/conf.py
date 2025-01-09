@@ -8,8 +8,7 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).parent
-PROJECT_ROOT = HERE.parent
-sys.path.insert(0, str(PROJECT_ROOT))
+sys.path[:0] = [str(HERE.parent)]
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
@@ -27,18 +26,16 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.autosummary',
     'sphinx.ext.mathjax',
-    'myst_nb',
-    'sphinx.ext.napoleon', 
+    'myst_nb',  
 ]
 autosummary_generate = True
 autodoc_mock_imports = ["burstlink"]
 autodoc_default_options = {
-    'members': True,
-    'undoc-members': True,
-    'private-members': False,
-    'special-members': '__init__',
-    'show-inheritance': True,
-    'source': True, 
+    'members': True,  
+    'undoc-members': True,  
+    'private-members': False,  
+    'special-members': '__init__', 
+    'show-inheritance': True,  
 }
 nb_execution_mode = "off"  
 source_suffix = {
