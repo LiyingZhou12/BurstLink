@@ -1,9 +1,3 @@
-.. BurstLink documentation master file, created by
-   sphinx-quickstart on Mon Jun 24 03:12:12 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-
 API Documentation
 =================
 
@@ -13,7 +7,7 @@ Preprocessing
 .. currentmodule:: burstlink.preprocessing
 
 .. autosummary::
-   :toctree: .
+   :toctree: api/preprocessing
 
    select_genepair_grn
    integration_grn
@@ -28,7 +22,7 @@ Tools
 .. currentmodule:: burstlink.tools
 
 .. autosummary::
-   :toctree: .
+   :toctree: api/tools
 
    global_burst_link
    global_uni_burst_link
@@ -50,19 +44,8 @@ Plotting
 .. currentmodule:: burstlink.plotting
 
 .. autosummary::
-   :toctree: .
+   :toctree: api/plotting
 
    network_visualization
    TFs_interactiontype_network
    scatterplot_burst
-
-
-Additional Resources
---------------------
-
-.. toctree::
-   :maxdepth: 2
-
-   burstlink.preprocessing
-   burstlink.tools
-   burstlink.plotting
