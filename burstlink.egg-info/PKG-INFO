@@ -1,10 +1,13 @@
 Metadata-Version: 2.1
 Name: burstlink
-Version: 0.4.0
+Version: 1.0.0
 Summary: A user-friendly package for analyzing gene interactions and transcriptional bursting.
-Requires-Python: >=3.8.18
+Requires-Python: >=3.8
 Description-Content-Type: text/markdown
 License-File: LICENSE.md
+Requires-Dist: statsmodels>=0.12.0
+Requires-Dist: numpy>=1.21.0
+Requires-Dist: pandas>=1.3.0
 
 <img src="https://raw.githubusercontent.com/LiyingZhou12/burstlink/main/docs/_static/image/logo.png" alt="Logo" width="450"/>            
 

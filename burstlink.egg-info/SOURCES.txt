@@ -5,6 +5,7 @@ burstlink/__init__.py
 burstlink.egg-info/PKG-INFO
 burstlink.egg-info/SOURCES.txt
 burstlink.egg-info/dependency_links.txt
+burstlink.egg-info/requires.txt
 burstlink.egg-info/top_level.txt
 burstlink/_utils/__init__.py
 burstlink/_utils/_plotting.py
