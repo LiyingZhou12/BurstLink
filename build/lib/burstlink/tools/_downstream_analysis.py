@@ -7,6 +7,7 @@ from scipy.stats import zscore, ttest_ind
 from sklearn.linear_model import BayesianRidge
 from scipy.stats import t
 from sklearn.utils import resample
+import gseapy as gp
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -289,75 +290,6 @@ def burst_interactionlevel_positive(readfile_name, burst_info, cv2_info):
     t_stat_cv2, p_value_cv2 = stats.ttest_ind(sorted_indegree_cv2[14::, 0], sorted_indegree_cv2[14::, 1])
     return (a, b, p_value_bf, p_value_bs, p_value_cv1, p_value_cv2)
 
-def dge_analysis(counts_data_file_Fibr, counts_data_file_ESC, inference_result_Fibr_, inference_result_ESC_):
-    """ Function for differential gene analysis. """
-    counts_data_Fibr_ = pd.read_csv(counts_data_file_Fibr)
-    counts_data_ESC_ = pd.read_csv(counts_data_file_ESC)
-    counts_data_Fibr = np.delete(np.matrix(counts_data_Fibr_.values.tolist()), np.s_[:1], axis=1)
-    counts_data_ESC = np.delete(np.matrix(counts_data_ESC_.values.tolist()), np.s_[:1], axis=1)
-    selected_countsdata_Fibr = np.zeros([1, counts_data_Fibr.shape[1]-1])
-    selected_countsdata_ESC = np.zeros([1, counts_data_ESC.shape[1]-1])
-    filtered_inference_result_Fibr, unique_genename_Fibr, result_unique_Fibr = unique_infer_info(inference_result_Fibr_, [-3.5, 2.5, -2.0, 3.0])
-    filtered_inference_result_ESC, unique_genename_ESC, result_unique_ESC = unique_infer_info(inference_result_ESC_, [-3.5, 2.8, -2.6, 3.2])
-    for n in np.arange(len(unique_genename_Fibr)):
-        genename = unique_genename_Fibr[n]
-        indice = np.where(np.array(unique_genename_ESC) == genename)[0]
-        if (len(indice) == 1):
-            index_Fibr = np.where(counts_data_Fibr[:, 0] == genename)[0][0]
-            counts_data_Fibr__ = counts_data_Fibr[index_Fibr, 1::].astype(float)
-            if np.isnan(counts_data_Fibr__).any():
-                row_mean = np.nanmean(counts_data_Fibr__)
-                counts_data_Fibr__ = np.where(np.isnan(counts_data_Fibr__), row_mean, counts_data_Fibr__)
-            selected_countsdata_Fibr = np.vstack([selected_countsdata_Fibr, counts_data_Fibr__])
-            index_ESC = np.where(counts_data_ESC[:, 0] == genename)[0][0]
-            counts_data_ESC__ = counts_data_ESC[index_ESC, 1::].astype(float)
-            if np.isnan(counts_data_ESC__).any():
-                row_mean = np.nanmean(counts_data_ESC__)
-                counts_data_ESC__ = np.where(np.isnan(counts_data_ESC__), row_mean, counts_data_ESC__)
-            selected_countsdata_ESC = np.vstack([selected_countsdata_ESC, counts_data_ESC__])   
-    group_Fibr = pd.DataFrame(selected_countsdata_Fibr, index=[f"Gene_{i+1}" for i in range(selected_countsdata_Fibr.shape[0])])
-    group_ESC = pd.DataFrame(selected_countsdata_ESC, index=[f"Gene_{i+1}" for i in range(selected_countsdata_Fibr.shape[0])])
-    group_ESC_upsampled = resample(group_ESC.T, replace=True, n_samples=counts_data_Fibr.shape[1]-1, random_state=123).T
-    group_ESC = group_ESC_upsampled
-    
-    results = []
-    for gene in group_Fibr.index:
-        group_Fibr_values = group_Fibr.loc[gene].values
-        group_ESC_values = group_ESC.loc[gene].values
-        mean_group_Fibr = np.mean(group_Fibr_values)
-        mean_group_ESC = np.mean(group_ESC_values)
-        fc = mean_group_ESC / mean_group_Fibr
-        log2_fc = np.log2(fc) if fc > 0 else 0
-        t_stat, p_value = ttest_ind(group_Fibr_values, group_ESC_values, equal_var=False)
-        results.append({'Gene': gene, 'log2FC': log2_fc, 'p_value': p_value})
-        results_df = pd.DataFrame(results)
-        results_df['-log10(p_value)'] = -np.log10(results_df['p_value'])
-    log2_fc_threshold = 0.5
-    p_value_threshold = 0.05
-    results_df['Significance'] = 'Not Significant'
-    results_df.loc[(results_df['log2FC'] > log2_fc_threshold) & (results_df['p_value'] < p_value_threshold), 'Significance'] = 'Upregulated'
-    results_df.loc[(results_df['log2FC'] < -log2_fc_threshold) & (results_df['p_value'] < p_value_threshold),'Significance'] = 'Downregulated'
-
-    plt.figure(dpi=300, figsize=(2.5, 2))
-    sns.scatterplot(data=results_df, x='log2FC', y='-log10(p_value)', hue='Significance', palette={'Upregulated': '#FF6666', 'Downregulated': '#6699FF', 'Not Significant': 'grey'}, s=18, alpha=0.85)
-    plt.axhline(-np.log10(p_value_threshold), color='black', linestyle='--', linewidth=0.4, label=f'p = {p_value_threshold}')
-    plt.axvline(log2_fc_threshold, color='black', linestyle='--', linewidth=0.4, label=f'log2FC = ±{log2_fc_threshold}')
-    plt.axvline(-log2_fc_threshold, color='black', linestyle='--', linewidth=0.4)
-    plt.title('Volcano Plot', fontsize=5)
-    plt.xlabel('log2(Fold Change)', fontsize=3.5)
-    plt.ylabel('-log10(p-value)', fontsize=3.5)
-    plt.xticks(fontsize=2.5) 
-    plt.yticks(fontsize=2.5)  
-    plt.tick_params(axis='both', which='both', width=0.3) 
-    ax = plt.gca()
-    for spine in ax.spines.values(): 
-        spine.set_linewidth(0.4)
-    plt.legend(title='Significance', fontsize=2, title_fontsize=2)
-    plt.grid(alpha=0.3)
-    plt.tight_layout()
-    plt.show()
-    return
-
 def correlation_burst(inference_result_Fibr_, inference_result_ESC_):
     filtered_inference_result_Fibr, unique_genename_Fibr, result_unique_Fibr = unique_infer_info(inference_result_Fibr_, [-3.5, 2.5, -2.0, 3.0])
     filtered_inference_result_ESC, unique_genename_ESC, result_unique_ESC = unique_infer_info(inference_result_ESC_, [-3.5, 2.8, -2.6, 3.2])
@@ -371,3 +303,54 @@ def correlation_burst(inference_result_Fibr_, inference_result_ESC_):
     unique_results = np.delete(unique_results, 62, axis=0)
     p_bf, p_bs = _plotting.scatter_interval(unique_results)
     return(p_bf, p_bs)
+
+def comparison_burst_analysis(data): 
+    bf = [np.log10(data[:, 5].astype(float)), np.log10(data[:, 1].astype(float))]
+    bs = [np.log10(data[:, 6].astype(float)), np.log10(data[:, 2].astype(float))]
+    cv2 = [np.log10(data[:, 7].astype(float)), np.log10(data[:, 3].astype(float))]
+    mean = [np.log10(data[:, 5].astype(float))+np.log10(data[:, 6].astype(float)), np.log10(data[:, 1].astype(float))+np.log10(data[:, 2].astype(float))]
+    t_stat_bf, p_value_bf = stats.ttest_ind(np.log10(data[:, 1].astype(float)), np.log10(data[:, 5].astype(float)))
+    t_stat_bs, p_value_bs = stats.ttest_ind(np.log10(data[:, 2].astype(float)), np.log10(data[:, 6].astype(float)))
+    t_stat_cv2, p_value_cv2 = stats.ttest_ind(np.log10(data[:, 3].astype(float)), np.log10(data[:, 7].astype(float)))
+    t_stat_mean, p_value_mean = stats.ttest_ind(np.log10(data[:, 1].astype(float))+np.log10(data[:, 2].astype(float)), np.log10(data[:, 5].astype(float))+np.log10(data[:, 6].astype(float)))
+    _plotting.box_plot4_2(bf, bs, cv2, mean)
+    return(p_value_bf, p_value_bs, p_value_cv2, p_value_mean)
+
+def comparison_regulation_analysis(data):
+    genename = data[:, 0]
+    regulation = np.array(np.hstack([data[:, 8].astype(float), data[:, 4].astype(float)]))  
+    genename = np.array(genename)[~np.any(regulation > 1800, axis=1)] 
+    regulation = np.array(regulation)[~np.any(regulation > 1800, axis=1)] 
+    genename = np.array(genename)[~np.any(regulation < 100, axis=1)] 
+    regulation = np.array(regulation)[~np.any(regulation < 100, axis=1)] 
+    interaction_level_DMSO = (regulation[:, 0] - np.mean(regulation[:, 0])) / np.std(regulation[:, 0])
+    interaction_level_idu = (regulation[:, 1] - np.mean(regulation[:, 1])) / np.std(regulation[:, 1])
+    interaction_level = np.vstack([interaction_level_idu, interaction_level_DMSO])
+    dd = interaction_level[1, :] - interaction_level[0, :]
+    interaction_level_ = np.vstack([interaction_level, dd])
+    sorted_indices = np.argsort(interaction_level_[2])[::-1] 
+    sorted_interaction_level = interaction_level_[:, sorted_indices] 
+    _plotting.heatmap_regulation(sorted_interaction_level[0:2, :])
+    return(genename, sorted_interaction_level, interaction_level)
+
+def comparison_regulation_difference_analysis(sorted_interaction_level):
+    _plotting.barplot_regulation(sorted_interaction_level[2, :])
+    return
+
+def go_enrichment_analysis(gene_list, gene_sets="GO_Biological_Process_2021", organism="Mouse"):
+    """
+    GO enrichment analysis.
+    """
+    results = gp.enrichr(gene_list=gene_list, gene_sets=gene_sets, organism=organism, cutoff=0.05)
+    return results.res2d
+
+
+def differential_tg_GO(genename, interaction_level):
+    dd = np.abs(interaction_level[0, :] - interaction_level[1, :])
+    columns_up = np.where((interaction_level[0, :] <= interaction_level[1, :]) & (interaction_level[1, :] - interaction_level[0, :] > np.median(dd)))[0]                 
+    columns_down = np.where((interaction_level[0, :] > interaction_level[1, :]) & (interaction_level[0, :] - interaction_level[1, :] > np.median(dd)))[0] 
+    go_enrichment_results_up = go_enrichment_analysis(genename[columns_up, 0].tolist())
+    _plotting.visualize_go_bar(go_enrichment_results_up, "Enrichment analysis of differential up-regulated genes", "Reds_r")
+    go_enrichment_results_down = go_enrichment_analysis(genename[columns_down, 0].tolist())
+    _plotting.visualize_go_bar(go_enrichment_results_down, "Enrichment analysis of differential down-regulated genes", "Blues_r")
+    return
