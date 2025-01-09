@@ -29,7 +29,23 @@ extensions = [
 ]
 
 autosummary_generate = True
-autodoc_mock_imports =  ["rpy2", "numpy", "pandas", "matplotlib", "statsmodels", "burstlink.plotting", "burstlink.preprocessing", "burstlink.tools",]
+autosummary_generate_overwrite = True
+
+autodoc_mock_imports = [
+    "rpy2",
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "statsmodels",
+    "burstlink",
+]
+
+autodoc_default_options = {
+    "members": True,
+    "undoc-members": True,
+    "show-inheritance": True,
+}
+
 nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
@@ -37,11 +53,10 @@ source_suffix = {
 }
 templates_path = ['_templates']
 exclude_patterns = [
-    'build',
     '_build',
-    '_build/jupyter_execute/**',
+    '**/.ipynb_checkpoints',
     'Thumbs.db',
-    '.DS_Store', 
+    '.DS_Store',
 ]
 
 # -- Options for HTML output -------------------------------------------------
