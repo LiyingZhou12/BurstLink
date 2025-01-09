@@ -29,31 +29,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'myst_nb',  
 ]
-autodoc_mock_imports = [
-    "sphinx",
-    "sphinx_rtd_theme",
-    "sphinx_mdinclude",
-    "sphinx_autodoc_typehints",
-    "sphinx_rtd_size",
-    "nbsphinx",
-    "sphinx_gallery",
-    "furo",
-    "myst_nb",
-    "leidenalg",
-    "matplotlib",
-    "numpy",
-    "pandas",
-    "plotly",
-    "POT",
-    "pycirclize",
-    "pydpc",
-    "python_igraph",
-    "scikit_learn",
-    "scipy",
-    "seaborn",
-    "tqdm",
-    "gseapy",
-]
+
 nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
@@ -66,6 +42,7 @@ exclude_patterns = [
     '_build/jupyter_execute/**',
     'Thumbs.db',
     '.DS_Store', 
+    'api/index.rst',
 ]
 
 # -- Options for HTML output -------------------------------------------------
