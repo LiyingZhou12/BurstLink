@@ -10,17 +10,9 @@ from ._plotting import scatter_plot
 from ._plotting import box_plot3
 from ._plotting import fit_3d
 from ._plotting import scatter_2d
+from ._plotting import box_plot4_2
+from ._plotting import heatmap_regulation
+from ._plotting import barplot_regulation
+from ._plotting import visualize_go_bar
 from ._synthetic_data import SSA_coexpression
 from ._synthetic_data import gibbs_sample
-
-
-
-
-
-    
-
-    
-    
-    
-
-
