@@ -16,7 +16,7 @@ sys.path[:0] = [str(HERE.parent)]
 project = 'BurstLink'
 copyright = '2024, LiyingZhou'
 author = 'LiyingZhou'
-release = '0.0.2'
+release = '1.0.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -28,6 +28,8 @@ extensions = [
     'sphinx.ext.mathjax',
     'myst_nb',  
 ]
+autosummary_generate = True
+autodoc_mock_imports = ["burstlink"]
 nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
