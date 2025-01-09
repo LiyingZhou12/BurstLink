@@ -30,6 +30,14 @@ extensions = [
 ]
 autosummary_generate = True
 autodoc_mock_imports = ["burstlink"]
+autodoc_default_options = {
+    'members': True,
+    'undoc-members': True,
+    'private-members': False,
+    'special-members': '__init__',
+    'show-inheritance': True,
+    'source': True, 
+}
 nb_execution_mode = "off"  
 source_suffix = {
     '.rst': 'restructuredtext',
