@@ -27,8 +27,8 @@ and transcriptional bursting from single-cell transcriptomics or multi-omics dat
 many intuitive visualization and downstream analysis tools, providing a great practical toolbox 
 for biomedical researchers.
 
-Gene regulatory interactions dictate transcriptional bursting
-=============================================================
+The coupled dynamics between gene regulatory interactions and transcriptional bursting
+======================================================================================
 
 Transcriptional bursts are inherently dynamic and stochastic processes, which are influenced by 
 gene-gene regulatory interactions through transcription factors from other genes, ultimately 
@@ -56,7 +56,7 @@ whole-genome inference and a series of downstream analyses.
 New
 ===
 
-- Jan 09, 2025: We released BurstLink version 1.0.3. This version standardizes function names and fixes some bugs.
+- Jan 10, 2025: We released BurstLink version 1.0.5. This version standardizes function names and fixes some bugs.
 
 BurstLink's features
 ====================
