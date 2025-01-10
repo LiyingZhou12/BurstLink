@@ -26,7 +26,7 @@ the required libraries within it.
 
 .. code:: bash
 
-   mamba create -n burstlink_env python=3.9 r-base=4.3.2
+   mamba create -n burstlink_env python=3.8 r-base=4.3.2
    mamba activate burstlink_env
    pip install burstlink
 
