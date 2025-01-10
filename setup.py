@@ -13,6 +13,7 @@ setup(
         "statsmodels>=0.12.0",
         "numpy>=1.21.0",
         "pandas>=1.3.0",
+        "pyarrow",
     ],
     long_description=long_description,
     long_description_content_type="text/markdown",  
