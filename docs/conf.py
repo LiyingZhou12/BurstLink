@@ -33,6 +33,11 @@ autosummary_generate_overwrite = True
 
 autodoc_mock_imports = [
     "rpy2",
+    "numpy",
+    "pandas",
+    "matplotlib",
+    "seaborn",
+    "pyarrow",
 ]
 
 autodoc_default_options = {
