@@ -14,4 +14,4 @@ These are some example scripts using the BurstLink package, which illustrates so
    :caption: Tutorials
 
    simulated_data/index
-   realistic_data/index
+   experimental_data/index
