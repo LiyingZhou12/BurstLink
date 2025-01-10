@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: burstlink
-Version: 1.0.3
+Version: 1.0.5
 Summary: A user-friendly package for analyzing gene interactions and transcriptional bursting.
 Requires-Python: >=3.8
 Description-Content-Type: text/markdown
@@ -16,7 +16,7 @@ Requires-Dist: pyarrow
 BurstLink is a Python package to infer the coupled dynamics of gene regulatory interactions and transcriptional bursting from single-cell transcriptomics or multi-omics data.
 It contains many intuitive visualization and downstream analysis tools, providing a great practical toolbox for biomedical researchers.
 
-### Gene regulatory interactions dictate transcriptional bursting
+### The coupled dynamics between gene regulatory interactions and transcriptional bursting
 Transcriptional bursts are inherently dynamic and stochastic processes, which are influenced by gene-gene regulatory interactions through transcription factors from other genes, ultimately driving highly heterogeneous gene expression within cells.  A question is to explore how dynamic gene-gene interaction-constructed regulatory network dictates bursting on a genome-wide scale. 
 
 <img src="https://raw.githubusercontent.com/LiyingZhou12/burstlink/main/docs/_static/image/question.png" alt="question.png" width="850"/>
@@ -30,12 +30,12 @@ BurstLink is a user-friendly package without the hyperparameter tuning, which is
 ### System requirements
 Recommended operating systems: macOS or Linux. BurstLink was developed and tested on Linux and macOS.
 ### Python requirements
-BurstLink was developed using python 3.9.
+BurstLink was developed using python 3.8.
 ### Installation using `pip`
 We suggest setting up BurstLink in a separate `mamba` or `conda` environment to prevent conflicts with other software dependencies. Create a new Python environment specifically for BurstLink and install the required libraries within it.
 
 ```bash
-mamba create -n burstlink_env python=3.9 r-base=4.3.2
+mamba create -n burstlink_env python=3.8 r-base=4.3.2
 mamba activate burstlink_env
 pip install burstlink
 ```
