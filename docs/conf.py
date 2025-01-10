@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.abspath('../'))
 project = 'BurstLink'
 copyright = '2025, LiyingZhou'
 author = 'LiyingZhou'
-release = '1.0.3'
+release = '1.0.5'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
