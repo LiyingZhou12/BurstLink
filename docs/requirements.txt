@@ -13,4 +13,4 @@ pandas<2.0,>=1.3
 scikit_learn<1.4,>=1.3
 scipy>=1.8.0
 seaborn>=0.11.0
-burstlink==1.0.4
+burstlink==1.1.1
