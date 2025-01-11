@@ -38,6 +38,10 @@ autodoc_mock_imports = [
     "matplotlib",
     "seaborn",
     "pyarrow",
+    "statsmodels",
+    "scikit-learn",
+    "decorator",
+    "gseapy",
 ]
 
 autodoc_default_options = {
