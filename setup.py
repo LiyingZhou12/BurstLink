@@ -19,7 +19,6 @@ setup(
         "decorator",
         "seaborn",
         "gseapy",
-        "rpy2",
     ],
     long_description=long_description,
     long_description_content_type="text/markdown",  
