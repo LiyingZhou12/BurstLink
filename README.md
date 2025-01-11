@@ -4,7 +4,7 @@
 BurstLink is a Python package to infer the coupled dynamics of gene regulatory interactions and transcriptional bursting from single-cell transcriptomics or multi-omics data.
 It contains many intuitive visualization and downstream analysis tools, providing a great practical toolbox for biomedical researchers.
 
-### The coupled dynamics between gene regulatory interactions and transcriptional bursting
+### Coupled dynamics between gene regulatory interactions and transcriptional bursting
 Transcriptional bursts are inherently dynamic and stochastic processes, which are influenced by gene-gene regulatory interactions through transcription factors from other genes, ultimately driving highly heterogeneous gene expression within cells.  A question is to explore how dynamic gene-gene interaction-constructed regulatory network dictates bursting on a genome-wide scale. 
 
 <img src="https://raw.githubusercontent.com/LiyingZhou12/burstlink/main/docs/_static/image/question.png" alt="question.png" width="850"/>
