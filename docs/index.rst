@@ -27,8 +27,8 @@ and transcriptional bursting from single-cell transcriptomics or multi-omics dat
 many intuitive visualization and downstream analysis tools, providing a great practical toolbox 
 for biomedical researchers.
 
-Coupled dynamics between gene regulatory interactions and transcriptional bursting
-==================================================================================
+Coupled dynamics of gene regulatory interactions and transcriptional bursting
+=============================================================================
 
 Transcriptional bursts are inherently dynamic and stochastic processes, which are influenced by 
 gene-gene regulatory interactions through transcription factors from other genes, ultimately 
