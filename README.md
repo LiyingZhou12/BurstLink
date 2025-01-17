@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/f54eac9d-f04d-4653-b094-5131520e1ab1)<img src="https://raw.githubusercontent.com/LiyingZhou12/burstlink/main/docs/_static/image/logo.png" alt="Logo" width="450"/>            
+<img src="https://raw.githubusercontent.com/LiyingZhou12/burstlink/main/docs/_static/image/logo.png" alt="Logo" width="450"/>            
 
 ## Brief introduction
 BurstLink is a Python package to infer the coupled dynamics of gene regulatory interactions and transcriptional bursting from single-cell transcriptomics or multi-omics data.
