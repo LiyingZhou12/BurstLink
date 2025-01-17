@@ -77,7 +77,7 @@ BurstLink's features
 
 Reference
 =========
-BurstLink: a statistical mechanistic model to reveal global transcriptional dynamics with gene regulatory interactions from single-cell data.
+BurstLink: deciphering global transcriptional dynamics and gene regulatory interactions from single-cell multi-omics data.
 
 
 .. toctree::
