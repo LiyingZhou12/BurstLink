@@ -87,4 +87,4 @@ infer_results = bl.tools._burst_interactions.genepair_inference(simul_data, gene
 
 
 ## Reference
-BurstLink: deciphering global transcriptional dynamics and gene regulatory interactions from single-cell multi-omics data.
+Deciphering global transcriptional dynamics coordinated by gene-gene regulatory interactions using single-cell multi-omics data.
